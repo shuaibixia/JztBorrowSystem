@@ -1,0 +1,45 @@
+<view class="page-container profile-page">
+  <view wx:if="{{needsBind}}" class="bind-panel">
+    <view class="bind-brand" bindtap="onBrandTap"><view class="bind-brand-icon"><t-icon name="camera" size="42rpx" /></view><view><text class="bind-title">摄影器材管理</text><text class="bind-subtitle">绑定学号后开始使用</text></view></view>
+    <view class="bind-card">
+      <text class="bind-label">学号</text>
+      <input class="student-id-input" type="number" maxlength="12" placeholder="输入 12 位学号" value="{{studentIdInput}}" bindinput="onStudentIdInput" />
+      <t-button theme="primary" size="large" block loading="{{loginLoading}}" bindtap="onBindStudentId">绑定登录</t-button>
+      <text class="bind-hint">学号由管理员提前录入</text>
+    </view>
+  </view>
+
+  <block wx:if="{{isLoggedIn}}">
+    <view class="profile-hero">
+      <image wx:if="{{userInfo.studentPhoto}}" src="{{userInfo.studentPhoto}}" class="profile-avatar" mode="aspectFill" />
+      <view wx:else class="profile-avatar avatar-placeholder"><t-icon name="user" size="48rpx" /></view>
+      <view class="profile-user"><text class="profile-name">{{userInfo.studentName || '同学'}}</text><text class="profile-id">学号：{{userInfo.studentId || '未绑定'}}</text><text class="role-chip">{{userInfo.role === 'superadmin' ? '超级管理员' : userInfo.role === 'admin' ? '管理员' : '普通成员'}}</text></view>
+    </view>
+
+    <view class="profile-stats-card">
+      <view class="profile-stat"><text class="profile-stat-value">{{stats.activeCount}}</text><text class="profile-stat-label">借出中</text></view>
+      <view class="profile-stat"><text class="profile-stat-value">{{stats.totalCheckouts}}</text><text class="profile-stat-label">历史借用</text></view>
+      <view class="profile-stat"><text class="profile-stat-value">{{stats.overdueCount}}</text><text class="profile-stat-label">逾期</text></view>
+    </view>
+
+    <view class="profile-section">
+      <text class="profile-section-title">我的服务</text>
+      <view class="profile-menu-card">
+        <view class="profile-menu-row" hover-class="profile-menu-row--pressed" bindtap="onReservationTap"><view class="menu-icon blue"><t-icon name="calendar" size="28rpx" /></view><view class="menu-copy"><text class="menu-title">我的预约</text><text class="menu-sub">查看和管理预约</text></view><t-icon name="chevron-right" size="24rpx" class="menu-arrow" /></view>
+        <view class="profile-menu-row" hover-class="profile-menu-row--pressed" bindtap="onViewRecords"><view class="menu-icon neutral"><t-icon name="time" size="28rpx" /></view><view class="menu-copy"><text class="menu-title">借还记录</text><text class="menu-sub">查看历史借用</text></view><t-icon name="chevron-right" size="24rpx" class="menu-arrow" /></view>
+        <view class="profile-menu-row" hover-class="profile-menu-row--pressed" bindtap="onNotificationTap"><view class="menu-icon neutral"><t-icon name="notification" size="28rpx" /></view><view class="menu-copy"><text class="menu-title">消息通知</text><text wx:if="{{unreadCount > 0}}" class="menu-sub danger">{{unreadCount}} 条未读消息</text><text wx:else class="menu-sub">查看系统消息</text></view><t-icon name="chevron-right" size="24rpx" class="menu-arrow" /></view>
+        <view class="profile-menu-row last" hover-class="profile-menu-row--pressed" bindtap="onViewEquipment"><view class="menu-icon neutral"><t-icon name="app" size="28rpx" /></view><view class="menu-copy"><text class="menu-title">器材列表</text><text class="menu-sub">浏览所有器材</text></view><t-icon name="chevron-right" size="24rpx" class="menu-arrow" /></view>
+      </view>
+    </view>
+
+    <view wx:if="{{isAdminUser}}" class="profile-section admin-section">
+      <text class="profile-section-title">管理工作台</text>
+      <view class="profile-menu-card">
+        <view class="profile-menu-row" hover-class="profile-menu-row--pressed" bindtap="onApprovalTap"><view class="menu-icon orange"><t-icon name="task" size="28rpx" /></view><view class="menu-copy"><text class="menu-title">审批管理</text><text class="menu-sub">处理借用申请</text></view><t-icon name="chevron-right" size="24rpx" class="menu-arrow" /></view>
+        <view class="profile-menu-row" hover-class="profile-menu-row--pressed" bindtap="onMemberTap"><view class="menu-icon blue"><t-icon name="usergroup" size="28rpx" /></view><view class="menu-copy"><text class="menu-title">成员管理</text><text class="menu-sub">查看成员和权限</text></view><t-icon name="chevron-right" size="24rpx" class="menu-arrow" /></view>
+        <view class="profile-menu-row" hover-class="profile-menu-row--pressed" bindtap="onStatsTap"><view class="menu-icon neutral"><t-icon name="chart" size="28rpx" /></view><view class="menu-copy"><text class="menu-title">数据统计</text><text class="menu-sub">查看借用与器材数据</text></view><t-icon name="chevron-right" size="24rpx" class="menu-arrow" /></view>
+        <view class="profile-menu-row last" hover-class="profile-menu-row--pressed" bindtap="onDataImportTap"><view class="menu-icon neutral"><t-icon name="upload" size="28rpx" /></view><view class="menu-copy"><text class="menu-title">数据管理</text><text class="menu-sub">导入成员和器材</text></view><t-icon name="chevron-right" size="24rpx" class="menu-arrow" /></view>
+      </view>
+    </view>
+  </block>
+</view>

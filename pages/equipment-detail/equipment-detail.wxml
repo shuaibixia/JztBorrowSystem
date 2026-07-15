@@ -1,0 +1,102 @@
+<t-navbar title="器材详情" left-arrow />
+
+<view class="page-container detail-page">
+  <t-skeleton loading="{{loading}}" rows="4" animate>
+    <view wx:if="{{error}}" class="state-panel">
+      <t-empty icon="error-circle" description="{{errorMessage || '加载失败'}}" />
+      <t-button theme="primary" size="small" bindtap="onRetryTap">重新加载</t-button>
+    </view>
+
+    <block wx:elif="{{equipment}}">
+      <view class="equipment-hero">
+        <image wx:if="{{equipment.imageUrl}}" src="{{equipment.imageUrl}}" class="hero-image" mode="aspectFill" />
+        <view wx:else class="hero-placeholder">
+          <t-icon name="camera" size="96rpx" />
+        </view>
+        <view class="hero-status">
+          <t-tag size="small" variant="light" theme="{{equipment.statusInfo.color === 'green' ? 'success' : equipment.statusInfo.color === 'orange' ? 'warning' : equipment.statusInfo.color === 'red' ? 'danger' : 'default'}}">{{equipment.statusInfo.label}}</t-tag>
+        </view>
+      </view>
+
+      <view class="detail-sheet">
+        <view class="equipment-summary">
+          <text class="equipment-name">{{equipment.name || '未命名器材'}}</text>
+          <text class="equipment-code">{{equipment.qrCode || '暂无编号'}}</text>
+          <view class="tag-row">
+            <t-tag size="small" variant="outline">{{equipment.categoryInfo.label}}</t-tag>
+            <t-tag wx:if="{{equipment.conditionInfo}}" size="small" variant="outline">{{equipment.conditionInfo.label}}</t-tag>
+          </view>
+          <text wx:if="{{equipment.description}}" class="equipment-description">{{equipment.description}}</text>
+        </view>
+
+        <view class="tabs-wrap">
+          <t-tabs value="{{activeTab}}" bind:change="onTabChange" space-evenly="{{false}}">
+            <t-tab-panel value="{{0}}" label="信息" />
+            <t-tab-panel value="{{1}}" label="借还" />
+            <t-tab-panel value="{{2}}" label="维修" />
+          </t-tabs>
+        </view>
+
+        <view wx:if="{{activeTab === 0}}" class="info-section">
+          <text class="detail-section-title">基本信息</text>
+          <view class="info-list">
+            <view wx:if="{{equipment.brand}}" class="info-row"><text class="info-label">品牌</text><text class="info-value">{{equipment.brand}}</text></view>
+            <view wx:if="{{equipment.model}}" class="info-row"><text class="info-label">型号</text><text class="info-value">{{equipment.model}}</text></view>
+            <view wx:if="{{equipment.serialNumber}}" class="info-row"><text class="info-label">序列号</text><text class="info-value">{{equipment.serialNumber}}</text></view>
+            <view wx:if="{{equipment.location}}" class="info-row"><text class="info-label">存放位置</text><text class="info-value">{{equipment.location}}</text></view>
+            <view wx:if="{{equipment.checkedOutAtStr}}" class="info-row"><text class="info-label">借出时间</text><text class="info-value">{{equipment.checkedOutAtStr}}</text></view>
+          </view>
+        </view>
+
+        <view wx:if="{{activeTab === 1}}" class="info-section">
+          <text class="detail-section-title">借还记录</text>
+          <view class="timeline-list">
+            <block wx:if="{{records.length > 0}}">
+              <view wx:for="{{records}}" wx:key="_id" class="timeline-row">
+                <view class="timeline-dot"></view>
+                <view class="timeline-main">
+                  <text class="timeline-title">{{item.userName}} {{item.action === 'checkout' ? '借出' : '归还'}}</text>
+                  <text class="timeline-sub">{{item.checkoutAtStr}}{{item.returnAtStr ? ' → ' + item.returnAtStr : ''}}</text>
+                </view>
+              </view>
+            </block>
+            <view wx:else class="state-panel compact"><t-empty icon="time" description="暂无借还记录" /></view>
+          </view>
+        </view>
+
+        <view wx:if="{{activeTab === 2}}" class="info-section">
+          <text class="detail-section-title">维修记录</text>
+          <view class="timeline-list">
+            <block wx:if="{{maintenanceRecords.length > 0}}">
+              <view wx:for="{{maintenanceRecords}}" wx:key="_id" class="timeline-row">
+                <view class="timeline-dot muted"></view>
+                <view class="timeline-main">
+                  <text class="timeline-title">{{item.typeInfo.label}}</text>
+                  <text class="timeline-sub">{{item.createdAtStr}}</text>
+                </view>
+              </view>
+            </block>
+            <view wx:else class="state-panel compact"><t-empty icon="tools" description="暂无维修记录" /></view>
+          </view>
+        </view>
+      </view>
+    </block>
+  </t-skeleton>
+</view>
+
+<view wx:if="{{equipment && !loading && !error}}" class="bottom-bar detail-bottom-bar">
+  <view wx:if="{{actionError}}" class="action-error"><t-icon name="error-circle" size="26rpx" /><text>{{actionError}}</text></view>
+  <view wx:if="{{equipment.status !== 'retired' || isAdmin}}" class="minor-actions">
+    <t-button wx:if="{{equipment.status !== 'retired'}}" variant="text" size="small" bindtap="onReserveTap">预约</t-button>
+    <t-button wx:if="{{isAdmin}}" variant="text" size="small" bindtap="onEditTap">编辑</t-button>
+    <t-button wx:if="{{isAdmin}}" variant="text" size="small" bindtap="onShowQr">二维码</t-button>
+    <t-button wx:if="{{isAdmin}}" variant="text" theme="danger" size="small" bindtap="onDeleteTap">删除</t-button>
+  </view>
+  <t-button theme="{{buttonInfo.theme}}" size="large" block disabled="{{buttonInfo.disabled}}" loading="{{actionLoading}}" bindtap="onActionTap">{{buttonInfo.text}}</t-button>
+</view>
+
+<t-action-sheet visible="{{showDialog && dialogType === 'checkout'}}" description="出库" bindcancel="onDialogCancel"><view class="sheet-content"><text class="field-label">用途</text><t-textarea placeholder="填写借用用途" value="{{purpose}}" bindchange="onPurposeInput" maxlength="200" autosize /><t-button theme="primary" size="large" block loading="{{actionLoading}}" bindtap="onDialogConfirm">确认出库</t-button></view></t-action-sheet>
+<t-action-sheet visible="{{showApprovalDialog}}" description="借用申请" bindcancel="onApprovalCancel"><view class="sheet-content"><text class="field-label">用途</text><t-textarea placeholder="填写申请用途" value="{{approvalPurpose}}" bindchange="onApprovalPurposeInput" maxlength="200" autosize /><t-button theme="primary" size="large" block loading="{{actionLoading}}" bindtap="onApprovalConfirm">提交申请</t-button></view></t-action-sheet>
+<t-action-sheet visible="{{showDialog && dialogType === 'return'}}" description="归还" bindcancel="onDialogCancel"><view class="sheet-content"><text class="field-label">状况</text><t-rate value="{{conditionIndex + 1}}" count="{{4}}" bindchange="onConditionChange" /><text class="condition-label">{{conditionOptions[conditionIndex]}}</text><text class="field-label">备注</text><t-textarea placeholder="可选" value="{{remark}}" bindchange="onRemarkInput" maxlength="200" autosize /><t-button theme="primary" size="large" block loading="{{actionLoading}}" bindtap="onDialogConfirm">确认归还</t-button></view></t-action-sheet>
+<t-dialog visible="{{showDeleteDialog}}" title="删除器材" confirm-btn="删除" cancel-btn="取消" bindconfirm="onDeleteConfirm" bindcancel="onDeleteCancel"><text slot="content">删除后标记为退役，不影响历史记录。</text></t-dialog>
+<t-dialog visible="{{showQrDialog}}" title="器材二维码" confirm-btn="关闭" bindconfirm="onQrClose"><view slot="content"><qr-display qr-code="{{equipment.qrCode}}" /></view></t-dialog>

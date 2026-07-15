@@ -1,0 +1,10 @@
+:host {
+  display: block;
+  background: var(--surface, #FFFFFF);
+  --td-tab-bar-bg-color: var(--surface, #FFFFFF);
+  --td-tab-bar-color: var(--t3, #86868B);
+  --td-tab-bar-active-color: var(--c1, #245F92);
+}
+@media (prefers-color-scheme: dark) {
+  :host { background: #1b1b1f; }
+}

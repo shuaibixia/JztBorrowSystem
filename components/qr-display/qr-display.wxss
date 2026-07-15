@@ -1,0 +1,32 @@
+.qr-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24rpx;
+  padding: 48rpx 32rpx;
+}
+
+.qr-header {
+  text-align: center;
+}
+
+.qr-name {
+  display: block;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: var(--td-text-color-primary);
+  margin-bottom: 8rpx;
+}
+
+.qr-code {
+  display: block;
+  font-size: 24rpx;
+  color: var(--td-text-color-secondary);
+}
+
+.qr-canvas {
+  width: 200px;
+  height: 200px;
+  border: 1px solid var(--td-border-level-1-color);
+  border-radius: 12rpx;
+}

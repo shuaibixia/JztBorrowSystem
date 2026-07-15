@@ -1,0 +1,39 @@
+<t-navbar title="审批管理" left-arrow />
+
+<view class="page-container approval-list-page">
+  <view class="filter-bar">
+    <t-search value="{{keyword}}" placeholder="搜索器材或申请人" shape="square" bind:change="onSearchChange" bind:clear="onClearSearch" />
+  </view>
+
+  <view class="tabs-wrap">
+    <t-tabs value="{{activeTab}}" bind:change="onTabChange" space-evenly="{{false}}">
+      <t-tab-panel wx:for="{{tabOptions}}" wx:key="index" value="{{index}}" label="{{item}}" />
+    </t-tabs>
+  </view>
+
+  <t-skeleton loading="{{loading && list.length === 0}}" rows="3" animate>
+    <view wx:if="{{error && list.length === 0}}" class="state-panel">
+      <t-empty icon="error-circle" description="{{errorMessage || '加载失败'}}" />
+      <t-button theme="primary" size="small" bindtap="onRetryList">重试</t-button>
+    </view>
+
+    <block wx:elif="{{list.length > 0}}">
+      <view class="approval-list">
+        <view wx:for="{{list}}" wx:key="_id" class="approval-row">
+          <approval-card approval="{{item}}" bind:tap="onItemTap" />
+        </view>
+      </view>
+    </block>
+
+    <view wx:else class="state-panel">
+      <t-empty icon="file" description="{{keyword ? '没有匹配的审批' : '没有审批'}}" />
+    </view>
+  </t-skeleton>
+
+  <view wx:if="{{error && list.length > 0}}" class="inline-error">
+    <text>{{errorMessage || '加载失败'}}</text>
+    <t-button variant="text" size="small" bindtap="onRetryList">重试</t-button>
+  </view>
+  <view wx:if="{{loading && list.length > 0}}" class="loading-more"><t-loading size="32rpx" theme="circular" /></view>
+  <view wx:if="{{!hasMore && list.length > 0}}" class="list-end">到底了</view>
+</view>

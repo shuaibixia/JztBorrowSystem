@@ -1,0 +1,89 @@
+<t-navbar title="数据统计" left-arrow />
+
+<view class="page-container stats-page">
+  <t-skeleton loading="{{loading}}" rows="5" animate>
+    <view wx:if="{{error}}" class="state-panel">
+      <t-empty icon="error-circle" description="{{errorMessage || '统计数据加载失败'}}" />
+      <t-button theme="primary" size="small" bindtap="onRetryTap">重新加载</t-button>
+    </view>
+
+    <block wx:elif="{{stats}}">
+      <view class="stats-overview">
+        <view class="overview-item">
+          <text class="overview-value">{{stats.totalRecords}}</text>
+          <text class="overview-label">总借用</text>
+        </view>
+        <view class="overview-item">
+          <text class="overview-value">{{stats.activeRecords}}</text>
+          <text class="overview-label">借出中</text>
+        </view>
+        <view class="overview-item overdue">
+          <text class="overview-value">{{stats.overdueRecords}}</text>
+          <text class="overview-label">逾期</text>
+        </view>
+        <view class="overview-item">
+          <text class="overview-value">{{stats.totalEquipment}}</text>
+          <text class="overview-label">在库器材</text>
+        </view>
+      </view>
+
+      <view class="stats-tabs">
+        <view data-tab="0" bindtap="onTabChange" class="stats-tab {{activeTab === 0 ? 'active' : ''}}">分类</view>
+        <view data-tab="1" bindtap="onTabChange" class="stats-tab {{activeTab === 1 ? 'active' : ''}}">活跃成员</view>
+        <view data-tab="2" bindtap="onTabChange" class="stats-tab {{activeTab === 2 ? 'active' : ''}}">借还趋势</view>
+      </view>
+
+      <view wx:if="{{activeTab === 0}}" class="stats-card">
+        <view class="stats-card-head">
+          <text class="stats-card-title">器材分类</text>
+          <text class="stats-card-note">共 {{stats.totalEquipment}} 件</text>
+        </view>
+        <block wx:if="{{stats.categoryDistribution.length > 0}}">
+          <view wx:for="{{stats.categoryDistribution}}" wx:key="category" class="category-row">
+            <text class="category-name">{{item.categoryInfo.label}}</text>
+            <view class="category-track"><view class="category-fill" style="width:{{stats.totalEquipment > 0 ? (item.count / stats.totalEquipment * 100) : 0}}%" /></view>
+            <text class="category-count">{{item.count}}</text>
+          </view>
+        </block>
+        <view wx:else class="stats-empty"><t-empty icon="browse" description="暂无分类数据" /></view>
+      </view>
+
+      <view wx:if="{{activeTab === 1}}" class="stats-card">
+        <view class="stats-card-head">
+          <text class="stats-card-title">活跃成员</text>
+          <text class="stats-card-note">按借用次数排序</text>
+        </view>
+        <block wx:if="{{stats.activeMembers.length > 0}}">
+          <view wx:for="{{stats.activeMembers}}" wx:key="name" class="active-member-row">
+            <text class="member-rank {{index < 3 ? 'top' : ''}}">{{index + 1}}</text>
+            <text class="active-member-name">{{item.name}}</text>
+            <text class="active-member-count">{{item.count}} 次</text>
+          </view>
+        </block>
+        <view wx:else class="stats-empty"><t-empty icon="usergroup" description="暂无成员数据" /></view>
+      </view>
+
+      <view wx:if="{{activeTab === 2}}" class="stats-card trend-card">
+        <view class="stats-card-head">
+          <text class="stats-card-title">借还趋势</text>
+          <view class="trend-legend">
+            <view class="legend-item"><view class="legend-dot checkout" /><text>出库</text></view>
+            <view class="legend-item"><view class="legend-dot returns" /><text>归还</text></view>
+          </view>
+        </view>
+        <block wx:if="{{monthlyTrend.length > 0}}">
+          <view class="trend-chart">
+            <view wx:for="{{monthlyTrend}}" wx:key="month" class="trend-column">
+              <view class="trend-bars">
+                <view class="trend-bar checkout" style="height:{{item.checkout / trendMax * 100}}%" />
+                <view class="trend-bar returns" style="height:{{item.returnCount / trendMax * 100}}%" />
+              </view>
+              <text class="trend-label">{{item.label}}</text>
+            </view>
+          </view>
+        </block>
+        <view wx:else class="stats-empty"><t-empty icon="chart" description="暂无趋势数据" /></view>
+      </view>
+    </block>
+  </t-skeleton>
+</view>

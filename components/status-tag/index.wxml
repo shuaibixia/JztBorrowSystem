@@ -1,0 +1,7 @@
+<t-tag
+  size="{{size}}"
+  variant="light"
+  theme="{{statusInfo.color === 'green' ? 'success' : statusInfo.color === 'orange' ? 'warning' : statusInfo.color === 'red' ? 'danger' : 'default'}}"
+>
+  {{statusInfo.label}}
+</t-tag>

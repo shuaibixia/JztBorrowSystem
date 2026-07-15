@@ -1,0 +1,119 @@
+<t-navbar title="器材管理" fixed>
+  <view slot="right" class="nav-action" bindtap="onNotificationTap">
+    <t-icon name="notification" size="40rpx" class="nav-icon" />
+    <view wx:if="{{unreadCount > 0}}" class="nav-dot" />
+  </view>
+</t-navbar>
+
+<view class="page-container home-page">
+  <t-skeleton loading="{{loading}}" rows="6" animate>
+    <view wx:if="{{error}}" class="state-panel home-state-panel">
+      <t-empty icon="error-circle" description="{{errorMessage || '首页加载失败'}}" />
+      <t-button theme="primary" size="small" bindtap="onRetryTap">重新加载</t-button>
+    </view>
+
+    <block wx:else>
+      <view class="home-content">
+        <view class="home-greeting">
+          <text class="greeting-kicker">{{greeting || '你好'}}</text>
+          <text class="greeting-name">{{userInfo.studentName || '同学'}}</text>
+          <text class="greeting-summary">当前借出 <text class="greeting-count">{{myActiveRecords.length + overdueRecords.length}}</text> 件器材</text>
+        </view>
+
+        <view class="stats-strip">
+          <view class="stat-item" hover-class="stat-item-pressed" bindtap="onViewEquipment">
+            <text class="stat-value">{{stats.available}}</text>
+            <text class="stat-label">可借</text>
+          </view>
+          <view class="stat-item" hover-class="stat-item-pressed" bindtap="onViewAllRecords">
+            <text class="stat-value">{{stats.checkedOut}}</text>
+            <text class="stat-label">借出中</text>
+          </view>
+          <view class="stat-item" hover-class="stat-item-pressed" bindtap="onViewEquipment">
+            <text class="stat-value">{{stats.total}}</text>
+            <text class="stat-label">全部器材</text>
+          </view>
+        </view>
+
+        <view class="search-entry" hover-class="search-entry-pressed" bindtap="onSearchTap">
+          <t-icon name="search" size="30rpx" class="search-icon" />
+          <text class="search-placeholder">搜索器材名称或编号</text>
+        </view>
+
+        <view class="home-section quick-section">
+          <view class="section-head">
+            <text class="section-title">快捷操作</text>
+          </view>
+
+          <view class="quick-actions">
+            <view class="quick-primary" hover-class="quick-primary-pressed" bindtap="onScanTap">
+              <view class="quick-primary-icon"><t-icon name="scan" size="40rpx" /></view>
+              <view class="quick-primary-copy">
+                <text class="quick-primary-title">扫码借还</text>
+                <text class="quick-primary-subtitle">扫描器材二维码，快速完成借出与归还</text>
+              </view>
+              <t-icon name="chevron-right" size="28rpx" class="quick-primary-arrow" />
+            </view>
+
+            <view class="quick-secondary-grid">
+              <view class="quick-secondary" hover-class="quick-secondary-pressed" bindtap="onReservationTap">
+                <view class="quick-secondary-top">
+                  <view class="quick-secondary-icon quick-secondary-icon--reservation"><t-icon name="calendar" size="28rpx" /></view>
+                  <t-icon name="chevron-right" size="22rpx" class="quick-secondary-arrow" />
+                </view>
+                <text class="quick-secondary-title">预约器材</text>
+                <text class="quick-secondary-subtitle">安排使用时间</text>
+              </view>
+              <view class="quick-secondary" hover-class="quick-secondary-pressed" bindtap="onViewEquipment">
+                <view class="quick-secondary-top">
+                  <view class="quick-secondary-icon quick-secondary-icon--equipment"><t-icon name="app" size="28rpx" /></view>
+                  <t-icon name="chevron-right" size="22rpx" class="quick-secondary-arrow" />
+                </view>
+                <text class="quick-secondary-title">器材列表</text>
+                <text class="quick-secondary-subtitle">浏览全部器材</text>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <view wx:if="{{overdueRecords.length > 0}}" class="overdue-banner" bindtap="onViewAllRecords">
+          <view class="overdue-icon"><t-icon name="error-circle" size="28rpx" /></view>
+          <text class="overdue-text">你有 {{overdueRecords.length}} 件器材已逾期，请及时归还</text>
+          <t-icon name="chevron-right" size="24rpx" class="overdue-arrow" />
+        </view>
+
+        <block wx:if="{{myActiveRecords.length > 0}}">
+          <view class="section-head loan-section-head">
+            <text class="section-title">当前借出</text>
+            <view class="section-link-wrap" bindtap="onViewAllRecords">
+              <text class="section-link">查看全部</text>
+              <t-icon name="chevron-right" size="22rpx" />
+            </view>
+          </view>
+
+          <view class="loan-list">
+            <view wx:for="{{myActiveRecords}}" wx:key="_id" data-id="{{item.equipmentId}}" bindtap="onRecordTap" hover-class="loan-row-pressed" class="loan-row">
+              <view class="loan-main">
+                <view class="loan-title-row">
+                  <text class="loan-title">{{item.equipmentName}}</text>
+                  <text wx:if="{{item.daysLeft !== null}}" class="loan-status {{item.daysLeft <= 1 ? 'loan-status--urgent' : ''}}">{{item.daysLeft < 0 ? '已逾期' : item.daysLeft === 0 ? '今日归还' : '剩余 ' + item.daysLeft + ' 天'}}</text>
+                </view>
+                <text class="loan-category">{{item.categoryName || '器材'}}</text>
+                <view class="loan-time-row">
+                  <t-icon name="time" size="22rpx" />
+                  <text>{{item.checkoutAtStr}} 借出</text>
+                </view>
+              </view>
+            </view>
+          </view>
+        </block>
+
+        <view wx:if="{{!loading && myActiveRecords.length === 0 && overdueRecords.length === 0}}" class="state-panel home-empty-panel">
+          <t-empty icon="browse" description="暂无借出记录" />
+        </view>
+      </view>
+    </block>
+  </t-skeleton>
+</view>
+
+<t-fab wx:if="{{isAdmin}}" icon="add" bind:click="onFabTap" />

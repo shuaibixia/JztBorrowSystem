@@ -1,0 +1,69 @@
+<t-navbar title="我的预约" left-arrow />
+
+<view class="page-container reservation-list-page">
+  <view class="reservation-toolbar">
+    <view class="create-entry">
+      <view class="create-copy">
+        <text class="create-title">选择器材预约</text>
+        <text class="create-sub">选择使用时间后等待管理员确认</text>
+      </view>
+      <t-button theme="primary" size="medium" bindtap="onCreateTap">去选择</t-button>
+    </view>
+
+    <view class="filter-bar">
+      <t-search value="{{keyword}}" placeholder="搜索器材或用途" shape="square" bind:change="onSearchChange" bind:clear="onClearSearch" />
+    </view>
+  </view>
+
+  <view class="tabs-wrap">
+    <t-tabs value="{{activeTab}}" bind:change="onTabChange" space-evenly="{{false}}">
+      <t-tab-panel wx:for="{{tabOptions}}" wx:key="index" value="{{index}}" label="{{item}}" />
+    </t-tabs>
+  </view>
+
+  <view wx:if="{{actionError}}" class="action-error"><t-icon name="error-circle" size="26rpx" /><text>{{actionError}}</text></view>
+
+  <t-skeleton loading="{{loading && list.length === 0}}" rows="3" animate>
+    <view wx:if="{{error && list.length === 0}}" class="state-panel">
+      <t-empty icon="error-circle" description="{{errorMessage || '加载失败'}}" />
+      <t-button theme="primary" size="small" bindtap="onRetryList">重试</t-button>
+    </view>
+
+    <block wx:elif="{{list.length > 0}}">
+      <view class="reservation-list">
+        <view wx:for="{{list}}" wx:key="_id" data-id="{{item._id}}" bindtap="onItemTap" hover-class="reservation-row--pressed" class="reservation-row">
+          <view class="row-top">
+            <text class="row-title">{{item.equipmentName || '预约'}}</text>
+            <t-tag size="small" variant="light" theme="{{item.statusInfo.color === 'green' ? 'success' : item.statusInfo.color === 'orange' ? 'warning' : 'default'}}">{{item.statusInfo.label}}</t-tag>
+          </view>
+          <view class="row-meta">
+            <text class="row-label">时间</text>
+            <text class="row-sub">{{item.startDateStr}} ~ {{item.endDateStr}}</text>
+          </view>
+          <view wx:if="{{item.purpose}}" class="row-meta">
+            <text class="row-label">用途</text>
+            <text class="row-sub">{{item.purpose}}</text>
+          </view>
+          <view wx:if="{{item.status === 'pending' || item.status === 'confirmed'}}" class="row-actions">
+            <t-button variant="text" theme="danger" size="small" data-id="{{item._id}}" catchtap="onCancelTap">取消预约</t-button>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <view wx:else class="state-panel">
+      <t-empty icon="calendar" description="{{keyword ? '没有匹配的预约' : '没有预约'}}" />
+    </view>
+  </t-skeleton>
+
+  <view wx:if="{{error && list.length > 0}}" class="inline-error">
+    <text>{{errorMessage || '加载失败'}}</text>
+    <t-button variant="text" size="small" bindtap="onRetryList">重试</t-button>
+  </view>
+  <view wx:if="{{loading && list.length > 0}}" class="loading-more"><t-loading size="32rpx" theme="circular" /></view>
+  <view wx:if="{{!hasMore && list.length > 0}}" class="list-end">到底了</view>
+</view>
+
+<t-dialog visible="{{showCancelDialog}}" title="取消预约" confirm-btn="确认" cancel-btn="取消" bindconfirm="onCancelConfirm" bindcancel="onCancelCancel">
+  <text slot="content">确定取消该预约？</text>
+</t-dialog>

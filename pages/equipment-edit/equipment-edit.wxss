@@ -1,0 +1,37 @@
+.page-container {
+  padding: var(--space-4) 0 var(--app-page-bottom-form);
+}
+
+.edit-section-title {
+  display: block;
+  margin: 0 0 12rpx;
+  color: var(--t1);
+  font-size: var(--type-label);
+  font-weight: 500;
+}
+
+.edit-section {
+  margin: 0 var(--mx) 28rpx;
+}
+
+.edit-cell-group {
+  overflow: hidden;
+  border: 1rpx solid var(--line-soft);
+  border-radius: var(--r);
+}
+
+.upload-section {
+  padding: 28rpx 24rpx;
+}
+
+.desc-section {
+  padding: 20rpx 24rpx 28rpx;
+}
+
+.btn-section {
+  padding: 12rpx var(--mx) 48rpx;
+}
+
+.btn-delete-spacer {
+  margin-top: var(--app-gap);
+}

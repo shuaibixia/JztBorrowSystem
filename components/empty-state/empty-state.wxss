@@ -1,0 +1,4 @@
+.es { display: flex; flex-direction: column; align-items: center; padding: 48rpx 0; gap: 4rpx; }
+.es-icon { color: var(--t3, #E3E2E0); }
+.es-text { font-size: 26rpx; color: var(--t2, #B4B4B0); }
+.es-sub { font-size: 22rpx; color: var(--t3, #E3E2E0); }

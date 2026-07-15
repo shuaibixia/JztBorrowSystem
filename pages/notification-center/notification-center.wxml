@@ -1,0 +1,52 @@
+<t-navbar title="消息" left-arrow>
+  <view slot="right" wx:if="{{unreadCount > 0}}" bindtap="onMarkAllRead">
+    <t-button variant="text" size="small">全部已读</t-button>
+  </view>
+</t-navbar>
+
+<view class="page-container notification-page">
+  <view class="notification-context">
+    <text class="notification-context-copy">{{unreadCount > 0 ? unreadCount + ' 条未读消息，及时查看处理结果' : '借用、预约和系统提醒都会显示在这里'}}</text>
+  </view>
+
+  <t-skeleton loading="{{loading && list.length === 0}}" rows="4" animate>
+    <view wx:if="{{error && list.length === 0}}" class="state-panel">
+      <t-empty icon="error-circle" description="{{errorMessage || '消息加载失败'}}" />
+      <t-button theme="primary" size="small" bindtap="onRetryList">重新加载</t-button>
+    </view>
+
+    <view wx:elif="{{list.length > 0}}" class="notification-list">
+      <view
+        wx:for="{{list}}"
+        wx:key="_id"
+        data-id="{{item._id}}"
+        data-relatedid="{{item.relatedId}}"
+        data-relatedtype="{{item.relatedType}}"
+        bindtap="onItemTap"
+        class="notification-card {{item.isRead ? 'is-read' : 'is-unread'}}"
+      >
+        <view class="notification-icon"><t-icon name="notification" size="28rpx" /></view>
+        <view class="notification-main">
+          <view class="notification-head">
+            <text class="notification-name">{{item.title}}</text>
+            <view wx:if="{{!item.isRead}}" class="unread-dot" />
+          </view>
+          <text class="notification-content">{{item.content}}</text>
+          <text class="notification-time">{{item.timeStr}}</text>
+        </view>
+        <t-icon name="chevron-right" size="22rpx" class="notification-arrow" />
+      </view>
+    </view>
+
+    <view wx:elif="{{!loading}}" class="state-panel">
+      <t-empty icon="notification" description="没有消息" />
+    </view>
+  </t-skeleton>
+
+  <view wx:if="{{error && list.length > 0}}" class="inline-error">
+    <text>{{errorMessage || '加载失败'}}</text>
+    <t-button variant="text" size="small" bindtap="onRetryList">重试</t-button>
+  </view>
+  <view wx:if="{{loading && list.length > 0}}" class="loading-more"><t-loading size="32rpx" theme="circular" /></view>
+  <view wx:if="{{!hasMore && list.length > 0}}" class="list-end">到底了</view>
+</view>

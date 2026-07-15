@@ -1,0 +1,6 @@
+<t-tab-bar value="{{value}}" bindchange="onChange" theme="normal" split="{{false}}" fixed>
+  <t-tab-bar-item value="home" icon="home">首页</t-tab-bar-item>
+  <t-tab-bar-item value="records" icon="calendar">记录</t-tab-bar-item>
+  <t-tab-bar-item value="scan" icon="scan">扫码</t-tab-bar-item>
+  <t-tab-bar-item value="profile" icon="user">我的</t-tab-bar-item>
+</t-tab-bar>

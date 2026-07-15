@@ -1,0 +1,9 @@
+{
+  "name": "admin-web",
+  "version": "1.0.0",
+  "description": "摄影器材管理网站后台 HTTP 网关",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

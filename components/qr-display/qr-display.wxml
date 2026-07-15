@@ -1,0 +1,10 @@
+<view class="qr-container">
+  <view class="qr-header">
+    <text class="qr-name">{{name}}</text>
+    <text class="qr-code">{{qrCode}}</text>
+  </view>
+  <canvas type="2d" id="qrCanvas" class="qr-canvas" />
+  <t-button theme="primary" size="small" block bindtap="onSaveToAlbum">
+    保存到相册
+  </t-button>
+</view>

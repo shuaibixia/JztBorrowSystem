@@ -1,0 +1,111 @@
+<t-navbar title="数据管理" left-arrow />
+
+<view class="page-container data-page" wx:if="{{isAdminUser}}">
+  <view class="data-main-tabs">
+    <view class="data-main-tab {{mainTab === 0 ? 'active' : ''}}" data-index="0" bindtap="onMainTabChange">器材</view>
+    <view class="data-main-tab {{mainTab === 1 ? 'active' : ''}}" data-index="1" bindtap="onMainTabChange">学生</view>
+  </view>
+
+  <scroll-view scroll-x class="data-sub-tabs-scroll">
+    <view class="data-sub-tabs">
+      <view
+        wx:for="{{mainTab === 0 ? equipmentTabs : studentTabs}}"
+        wx:key="index"
+        data-index="{{index}}"
+        bindtap="onSubTabChange"
+        class="data-sub-tab {{subTab === index ? 'active' : ''}}"
+      >{{item}}</view>
+    </view>
+  </scroll-view>
+
+  <view wx:if="{{mainTab === 0 && subTab === 0}}" class="data-card">
+    <text class="data-card-title">单条录入器材</text>
+    <view class="data-field">
+      <text class="data-label">器材类型</text>
+      <picker value="{{eqCategoryIndex}}" range="{{categoryLabels}}" bindchange="onEqCategoryChange">
+        <view class="data-picker {{eqCategoryIndex >= 0 ? '' : 'placeholder'}}"><text>{{eqCategoryIndex >= 0 ? categoryLabels[eqCategoryIndex] : '选择类型'}}</text><t-icon name="chevron-right" size="24rpx" /></view>
+      </picker>
+    </view>
+    <view class="data-field">
+      <text class="data-label">型号</text>
+      <input class="data-input" value="{{eqModel}}" placeholder="如 Sony A7S3" bindchange="onEqModelInput" />
+    </view>
+    <view class="data-field">
+      <text class="data-label">SN 码</text>
+      <input class="data-input" value="{{eqSerialNumber}}" placeholder="输入器材序列号" bindchange="onEqSnInput" />
+    </view>
+    <t-button theme="primary" size="large" block loading="{{eqSubmitting}}" disabled="{{eqSubmitting}}" bindtap="onSubmitEquipment">添加器材</t-button>
+  </view>
+
+  <view wx:if="{{mainTab === 0 && subTab === 1}}" class="data-card">
+    <text class="data-card-title">批量导入器材</text>
+    <text class="data-help">粘贴 JSON 数组，每条包含 category / model / serialNumber。</text>
+    <text class="data-help secondary">支持类型：camera / lens / tripod / lighting / audio / accessory</text>
+    <t-textarea value="{{eqBatchJson}}" placeholder='[{"category":"camera","model":"A7S3","serialNumber":"123"}]' maxlength="-1" autosize bindchange="onEqBatchJsonInput" />
+    <t-button theme="primary" size="large" block loading="{{eqBatchLoading}}" disabled="{{eqBatchLoading}}" bindtap="onEqBatchImport">开始导入</t-button>
+    <view wx:if="{{eqBatchResult}}" class="import-result">
+      <text class="import-result-title">成功 {{eqBatchResult.success}} 条，失败 {{eqBatchResult.failed}} 条</text>
+      <text wx:for="{{eqBatchResult.errors}}" wx:key="index" class="import-result-error">{{item}}</text>
+    </view>
+  </view>
+
+  <view wx:if="{{mainTab === 0 && subTab === 2}}" class="data-card data-list-card">
+    <view class="data-list-toolbar">
+      <view class="data-search"><t-icon name="search" size="26rpx" /><input value="{{eqKeyword}}" placeholder="搜索型号或 SN 码" bindchange="onEqSearchInput" /></view>
+      <t-button size="small" theme="primary" bindtap="onEqSearch">搜索</t-button>
+    </view>
+    <text class="data-count">共 {{eqListTotal}} 件器材</text>
+    <view wx:if="{{eqListLoading}}" class="data-loading"><t-loading size="36rpx" theme="circular" /></view>
+    <block wx:else>
+      <view wx:if="{{equipmentList.length === 0}}" class="data-empty"><t-empty icon="browse" description="暂无器材" /></view>
+      <view wx:for="{{equipmentList}}" wx:key="_id" class="data-list-row">
+        <view class="data-list-icon"><t-icon name="camera" size="30rpx" /></view>
+        <view class="data-list-main"><text class="data-list-name">{{item.model || item.name}}</text><text class="data-list-meta">{{item.categoryLabel}} · SN: {{item.serialNumber || '无'}}</text></view>
+        <t-tag size="small" variant="light" theme="{{item.statusInfo.color === 'green' ? 'success' : item.statusInfo.color === 'orange' ? 'warning' : item.statusInfo.color === 'red' ? 'danger' : 'default'}}">{{item.statusInfo.label}}</t-tag>
+      </view>
+    </block>
+  </view>
+
+  <view wx:if="{{mainTab === 1 && subTab === 0}}" class="data-card">
+    <text class="data-card-title">单条录入学生</text>
+    <view class="data-field">
+      <text class="data-label">学号</text>
+      <input class="data-input" type="number" maxlength="12" value="{{formStudentId}}" placeholder="输入 12 位学号" bindchange="onStudentIdInput" />
+    </view>
+    <view class="data-field">
+      <text class="data-label">姓名</text>
+      <input class="data-input" value="{{formName}}" placeholder="输入姓名" bindchange="onNameInput" />
+    </view>
+    <t-button theme="primary" size="large" block loading="{{submitting}}" disabled="{{submitting}}" bindtap="onSubmitStudent">添加学生</t-button>
+  </view>
+
+  <view wx:if="{{mainTab === 1 && subTab === 1}}" class="data-card">
+    <text class="data-card-title">批量导入学生</text>
+    <text class="data-help">粘贴 JSON 数组，每条包含 12 位 studentId 和 name。</text>
+    <t-textarea value="{{batchJson}}" placeholder='[{"studentId":"202401010001","name":"张三"}]' maxlength="-1" autosize bindchange="onBatchJsonInput" />
+    <t-button theme="primary" size="large" block loading="{{batchLoading}}" disabled="{{batchLoading}}" bindtap="onBatchImport">开始导入</t-button>
+    <view wx:if="{{batchResult}}" class="import-result">
+      <text class="import-result-title">成功 {{batchResult.success}} 条，失败 {{batchResult.failed}} 条</text>
+      <text wx:for="{{batchResult.errors}}" wx:key="index" class="import-result-error">{{item}}</text>
+    </view>
+  </view>
+
+  <view wx:if="{{mainTab === 1 && subTab === 2}}" class="data-card data-list-card">
+    <view class="data-list-toolbar">
+      <view class="data-search"><t-icon name="search" size="26rpx" /><input value="{{keyword}}" placeholder="搜索学号或姓名" bindchange="onSearchInput" /></view>
+      <t-button size="small" theme="primary" bindtap="onSearch">搜索</t-button>
+    </view>
+    <text class="data-count">共 {{listTotal}} 位学生</text>
+    <view wx:if="{{listLoading}}" class="data-loading"><t-loading size="36rpx" theme="circular" /></view>
+    <block wx:else>
+      <view wx:if="{{studentList.length === 0}}" class="data-empty"><t-empty icon="usergroup" description="暂无学生" /></view>
+      <view wx:for="{{studentList}}" wx:key="_id" class="data-list-row">
+        <image wx:if="{{item.photo}}" src="{{item.photo}}" class="student-avatar" mode="aspectFill" />
+        <view wx:else class="data-list-icon"><t-icon name="user" size="28rpx" /></view>
+        <view class="data-list-main"><text class="data-list-name">{{item.name}}</text><text class="data-list-meta">{{item.studentId}}</text></view>
+      </view>
+    </block>
+  </view>
+</view>
+
+<view wx:else class="state-panel no-access"><t-empty icon="error-circle" description="正在检查管理员权限" /></view>

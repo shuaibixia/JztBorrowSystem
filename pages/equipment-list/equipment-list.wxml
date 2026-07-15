@@ -1,0 +1,47 @@
+<t-navbar title="器材库" left-arrow />
+
+<view class="page-container equipment-list-page">
+  <view class="search-box">
+    <t-icon name="search" size="28rpx" class="muted-icon" />
+    <input class="search-input" placeholder="搜索名称、型号或编号" value="{{keyword}}" bindinput="onSearchChange" />
+    <t-icon wx:if="{{keyword}}" name="close-circle-filled" size="24rpx" class="clear-icon" bindtap="onClearSearch" />
+  </view>
+
+  <scroll-view scroll-x class="category-scroll">
+    <view class="category-row">
+      <view
+        wx:for="{{categoryOptions}}"
+        wx:key="label"
+        data-index="{{index}}"
+        bindtap="onCategoryTap"
+        class="category-chip {{categoryIndex === index ? 'category-chip--active' : ''}}"
+      >{{item.label}}</view>
+    </view>
+  </scroll-view>
+
+  <view wx:if="{{list.length > 0}}" class="list-summary">找到 {{list.length}} 件器材</view>
+
+  <t-skeleton loading="{{loading && list.length === 0}}" rows="3" animate>
+    <view wx:if="{{error && list.length === 0}}" class="state-panel">
+      <t-empty icon="error-circle" description="{{errorMessage || '器材加载失败'}}" />
+      <t-button theme="primary" size="small" bindtap="onRetryList">重试</t-button>
+    </view>
+
+    <block wx:elif="{{list.length > 0}}">
+      <view class="equipment-grid">
+        <equipment-card wx:for="{{list}}" wx:key="_id" equipment="{{item}}" bind:tap="onItemTap" />
+      </view>
+    </block>
+
+    <view wx:elif="{{!loading && list.length === 0}}" class="state-panel">
+      <t-empty icon="search" description="{{keyword ? '换个关键词试试' : '还没有器材'}}" />
+    </view>
+  </t-skeleton>
+
+  <view wx:if="{{error && list.length > 0}}" class="inline-error">
+    <text>{{errorMessage || '加载失败'}}</text>
+    <t-button variant="text" size="small" bindtap="onRetryList">重试</t-button>
+  </view>
+  <view wx:if="{{loading && list.length > 0}}" class="loading-more"><t-loading size="32rpx" theme="circular" /></view>
+  <view wx:if="{{!hasMore && list.length > 0}}" class="list-end">到底了</view>
+</view>

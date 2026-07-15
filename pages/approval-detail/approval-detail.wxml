@@ -1,0 +1,63 @@
+<t-navbar title="审批详情" left-arrow />
+<view class="page-container approval-detail-page">
+  <t-skeleton loading="{{loading}}" rows="3" animate>
+    <view wx:if="{{error}}" class="state-panel">
+      <t-empty icon="error-circle" description="{{errorMessage || '审批详情加载失败'}}" />
+      <t-button theme="primary" size="small" bindtap="onRetryTap">重试</t-button>
+    </view>
+
+    <view wx:elif="{{notFound}}" class="state-panel">
+      <t-empty icon="file" description="审批不存在" />
+      <t-button theme="primary" size="small" bindtap="onBackTap">返回</t-button>
+    </view>
+
+    <block wx:elif="{{approval}}">
+      <view class="status-card status-{{approval.status}}">
+        <view class="status-main">
+          <text class="status-label">审批状态</text>
+          <t-tag size="small" variant="light" theme="{{approval.status === 'approved' ? 'success' : approval.status === 'pending' ? 'warning' : 'danger'}}">{{approval.statusInfo.label}}</t-tag>
+        </view>
+        <text class="status-sub">{{approval.status === 'pending' ? '等待管理员处理' : approval.status === 'approved' ? '已通过，器材会按统一出库逻辑处理' : '该申请已被拒绝'}}</text>
+      </view>
+
+      <view wx:if="{{actionError}}" class="action-error">
+        <t-icon name="error-circle" size="26rpx" />
+        <text>{{actionError}}</text>
+      </view>
+      <view class="info-list">
+        <view class="info-row"><text class="info-label">申请人</text><text class="info-value">{{approval.requesterName || '—'}}</text></view>
+        <view class="info-row"><text class="info-label">器材</text><text class="info-value">{{approval.equipmentName || '—'}}</text></view>
+        <view class="info-row"><text class="info-label">用途</text><text class="info-value">{{approval.purpose || '—'}}</text></view>
+        <view class="info-row"><text class="info-label">申请时间</text><text class="info-value">{{approval.createdAtStr}}</text></view>
+        <view wx:if="{{approval.reviewedAtStr}}" class="info-row"><text class="info-label">处理时间</text><text class="info-value">{{approval.reviewedAtStr}}</text></view>
+        <view wx:if="{{approval.remark}}" class="info-row"><text class="info-label">备注</text><text class="info-value">{{approval.remark}}</text></view>
+        <view wx:if="{{approval.rejectReason}}" class="info-row last"><text class="info-label">拒绝原因</text><text class="info-value danger">{{approval.rejectReason}}</text></view>
+      </view>
+    </block>
+  </t-skeleton>
+</view>
+
+<view wx:if="{{canReviewApproval && !loading && !error && !notFound}}" class="bottom-bar">
+  <view class="bottom-action">
+    <t-button theme="default" size="large" block loading="{{actionLoading && showRejectDialog}}" disabled="{{actionLoading}}" bindtap="onRejectTap">拒绝</t-button>
+  </view>
+  <view class="bottom-action">
+    <t-button theme="primary" size="large" block loading="{{actionLoading && showApproveDialog}}" disabled="{{actionLoading}}" bindtap="onApproveTap">通过</t-button>
+  </view>
+</view>
+
+<t-action-sheet visible="{{showApproveDialog}}" description="通过" bindcancel="onApproveCancel">
+  <view class="sheet-content">
+    <text class="field-label">备注</text>
+    <t-textarea placeholder="可选" value="{{approveRemark}}" bindchange="onApproveRemarkInput" maxlength="200" autosize />
+    <t-button theme="primary" size="large" block loading="{{actionLoading}}" disabled="{{actionLoading}}" bindtap="onApproveConfirm">确认通过</t-button>
+  </view>
+</t-action-sheet>
+
+<t-action-sheet visible="{{showRejectDialog}}" description="拒绝" bindcancel="onRejectCancel">
+  <view class="sheet-content">
+    <text class="field-label">原因</text>
+    <t-textarea placeholder="说一下为什么" value="{{rejectReason}}" bindchange="onRejectReasonInput" maxlength="200" autosize />
+    <t-button theme="danger" size="large" block loading="{{actionLoading}}" disabled="{{actionLoading}}" bindtap="onRejectConfirm">确认拒绝</t-button>
+  </view>
+</t-action-sheet>

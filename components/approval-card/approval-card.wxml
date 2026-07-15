@@ -1,0 +1,12 @@
+<view class="ac" hover-class="ac--pressed" bindtap="onTap">
+  <view class="ac-top">
+    <text class="ac-eq">{{approval.equipmentName || '未命名器材'}}</text>
+    <t-tag size="small" variant="light" theme="{{statusInfo.color === 'green' ? 'success' : statusInfo.color === 'orange' ? 'warning' : 'error'}}">{{statusInfo.label}}</t-tag>
+  </view>
+  <view class="ac-meta">
+    <text class="ac-person">{{approval.requesterName || '未知申请人'}}</text>
+    <text class="ac-dot">·</text>
+    <text class="ac-time">{{timeStr}}</text>
+  </view>
+  <text wx:if="{{approval.purpose}}" class="ac-purpose">{{approval.purpose}}</text>
+</view>

@@ -1,0 +1,120 @@
+.page-container {
+  padding-top: var(--space-4);
+  padding-bottom: var(--pb);
+}
+
+.maintenance-context-name,
+.maintenance-context-copy {
+  display: block;
+}
+
+.maintenance-context {
+  margin: 0 var(--mx) 24rpx;
+}
+
+.maintenance-context-name {
+  overflow: hidden;
+  color: var(--t0);
+  font-size: var(--type-heading);
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.maintenance-context-copy {
+  margin-top: 8rpx;
+  overflow: hidden;
+  color: var(--t2);
+  font-size: var(--f3);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.maintenance-list {
+  margin: 0 var(--mx);
+  overflow: hidden;
+  border: 1rpx solid var(--line-soft);
+  border-radius: var(--r);
+  background: var(--surface);
+}
+
+.maintenance-row {
+  padding: 24rpx;
+  border-bottom: 1rpx solid var(--line-soft);
+}
+
+.maintenance-row:last-child {
+  border-bottom: 0;
+}
+
+.maintenance-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16rpx;
+}
+
+.maintenance-time {
+  min-width: 0;
+  overflow: hidden;
+  flex: 0 0 auto;
+  color: var(--t3);
+  font-size: var(--f4);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.maintenance-description {
+  display: block;
+  margin-top: 14rpx;
+  color: var(--t0);
+  font-size: var(--f2);
+  line-height: 1.55;
+  word-break: break-all;
+}
+
+.maintenance-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8rpx 16rpx;
+  margin-top: 12rpx;
+  color: var(--t2);
+  font-size: var(--f4);
+}
+
+.maintenance-cost {
+  color: var(--warn);
+}
+
+.state-panel {
+  margin: 0 var(--mx);
+  padding: var(--state-pad);
+  text-align: center;
+}
+
+.maintenance-sheet {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+  padding: 24rpx var(--mx) 32rpx;
+}
+
+.field-label {
+  margin-bottom: -4rpx;
+  color: var(--t1);
+  font-size: var(--f3);
+  font-weight: 500;
+}
+
+.picker-field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 76rpx;
+  padding: 0 18rpx;
+  border: 1rpx solid var(--line-soft);
+  border-radius: var(--r-sm);
+  background: var(--bg-sec);
+  color: var(--t0);
+  font-size: var(--f2);
+}

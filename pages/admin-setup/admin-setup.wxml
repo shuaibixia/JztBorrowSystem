@@ -1,0 +1,21 @@
+<t-navbar title="管理员设置" left-arrow />
+
+<view class="page-container setup-page">
+  <view class="setup-shell">
+    <view class="setup-mark"><t-icon name="lock-on" size="46rpx" /></view>
+    <text class="setup-title">首次部署</text>
+    <text class="setup-subtitle">输入激活码，创建首个管理员账号</text>
+
+    <view class="setup-card">
+      <view class="setup-field">
+        <text class="setup-label">激活码</text>
+        <input class="setup-input" value="{{setupCode}}" placeholder="输入激活码" password bindchange="onCodeInput" />
+      </view>
+      <view class="setup-field">
+        <text class="setup-label">姓名</text>
+        <input class="setup-input" value="{{adminName}}" placeholder="输入管理员姓名" bindchange="onNameInput" />
+      </view>
+      <t-button theme="primary" size="large" block loading="{{loading}}" disabled="{{!setupCode || !adminName}}" bindtap="onSubmit">创建管理员</t-button>
+    </view>
+  </view>
+</view>

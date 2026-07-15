@@ -1,0 +1,45 @@
+.approval-list-page {
+  padding: var(--space-4) var(--mx) var(--pbf);
+}
+
+.filter-bar {
+  margin-bottom: var(--space-2);
+  --td-search-bg-color: var(--surface);
+  --td-search-square-radius: var(--r-control);
+  --td-search-font-size: var(--type-label);
+}
+
+.tabs-wrap {
+  margin-bottom: var(--space-3);
+  border-bottom: 1rpx solid var(--line-soft);
+  --td-tab-nav-bg-color: transparent;
+  --td-tab-item-height: 80rpx;
+  --td-tab-item-active-color: var(--c1);
+  --td-tab-track-color: var(--c1);
+}
+
+.approval-list {
+  overflow: hidden;
+  border: 1rpx solid var(--line-soft);
+  border-radius: var(--r-content);
+  background: var(--surface);
+}
+
+.approval-row + .approval-row {
+  border-top: 1rpx solid var(--line-soft);
+}
+
+.state-panel {
+  padding: var(--state-pad);
+  text-align: center;
+}
+
+.inline-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-2) 0;
+  color: var(--err);
+  font-size: var(--type-label);
+}

@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-15T00:00:00+08:00",
+  "title": "Design System: 摄影器材管理",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Quiet Equipment Blue",
+        "canonical": "#245F92",
+        "tonalRamp": ["#EAF1F7", "#B5D0E8", "#245F92", "#1E527F", "#143C5E"]
+      },
+      "canvas": {
+        "role": "neutral",
+        "displayName": "Cool Canvas",
+        "canonical": "#F7F8FA",
+        "tonalRamp": ["#FFFFFF", "#F2F4F7", "#F7F8FA", "#E6E9EE", "#CFD5DD"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Page Display",
+        "purpose": "Page headings and the home greeting name."
+      },
+      "headline": {
+        "displayName": "Section Headline",
+        "purpose": "Section titles and important row titles."
+      },
+      "body": {
+        "displayName": "Product Body",
+        "purpose": "Task content, buttons, and equipment information."
+      }
+    },
+    "shadows": [
+      {
+        "name": "floating-only",
+        "value": "0 2px 6px rgba(29, 29, 31, 0.12)",
+        "purpose": "FABs and temporary floating layers only."
+      }
+    ],
+    "motion": {
+      "press": {
+        "duration": "150ms",
+        "easing": "ease-out",
+        "treatment": "opacity or scale(0.98)"
+      }
+    },
+    "northStar": "安静的器材工作台",
+    "rules": [
+      "One content surface uses either a divider or a shadow, never both.",
+      "Blue expresses one primary action or current selection per screen.",
+      "Lists group related rows instead of repeating floating cards."
+    ]
+  }
+}

@@ -1,0 +1,98 @@
+<t-navbar title="{{isEdit ? '编辑器材' : '新增器材'}}" left-arrow />
+
+<view class="page-container equipment-edit-page">
+  <view class="edit-section">
+    <text class="edit-section-title">基本信息</text>
+    <t-cell-group class="edit-cell-group">
+      <t-cell title="器材名称" borderless>
+        <t-input slot="note" value="{{name}}" placeholder="请输入名称" bindchange="onNameInput" />
+      </t-cell>
+      <t-cell title="分类" note="{{categoryOptions[categoryIndex]}}" arrow>
+        <t-picker
+          slot="note"
+          value="{{categoryIndex}}"
+          range="{{categoryOptions}}"
+          bindchange="onCategoryChange"
+        />
+      </t-cell>
+      <t-cell title="品牌" borderless>
+        <t-input slot="note" value="{{brand}}" placeholder="请输入品牌" bindchange="onBrandInput" />
+      </t-cell>
+      <t-cell title="型号" borderless>
+        <t-input slot="note" value="{{model}}" placeholder="请输入型号" bindchange="onModelInput" />
+      </t-cell>
+      <t-cell title="序列号" borderless>
+        <t-input slot="note" value="{{serialNumber}}" placeholder="请输入序列号" bindchange="onSerialInput" />
+      </t-cell>
+    </t-cell-group>
+  </view>
+
+  <view class="edit-section">
+    <text class="edit-section-title">存放信息</text>
+    <t-cell-group class="edit-cell-group">
+      <t-cell title="存放位置" borderless>
+        <t-input slot="note" value="{{location}}" placeholder="请输入存放位置" bindchange="onLocationInput" />
+      </t-cell>
+      <t-cell title="器材状况" note="{{conditionOptions[conditionIndex]}}" arrow>
+        <t-picker
+          slot="note"
+          value="{{conditionIndex}}"
+          range="{{conditionOptions}}"
+          bindchange="onConditionChange"
+        />
+      </t-cell>
+    </t-cell-group>
+  </view>
+
+  <view class="edit-section">
+    <text class="edit-section-title">图片</text>
+    <t-cell-group class="edit-cell-group">
+      <view class="upload-section">
+        <t-upload
+          media-type="['image']"
+          files="{{fileList}}"
+          max="{{1}}"
+          bindsuccess="onUploadSuccess"
+          bindremove="onUploadRemove"
+        />
+      </view>
+    </t-cell-group>
+  </view>
+
+  <view class="edit-section">
+    <text class="edit-section-title">描述</text>
+    <t-cell-group class="edit-cell-group">
+      <view class="desc-section">
+        <t-textarea
+          value="{{description}}"
+          placeholder="请输入器材描述（可选）"
+          bindchange="onDescInput"
+          maxlength="500"
+          autosize
+        />
+      </view>
+    </t-cell-group>
+  </view>
+
+  <view class="btn-section">
+    <t-button theme="primary" size="large" block loading="{{saving}}" bindtap="onSave">
+      {{isEdit ? '保存修改' : '创建器材'}}
+    </t-button>
+    <t-button wx:if="{{isEdit}}" theme="danger" size="large" block variant="outline" class="btn-delete-spacer" bindtap="onDeleteTap">
+      删除器材
+    </t-button>
+    <t-button wx:if="{{isEdit}}" theme="default" size="large" block variant="outline" class="btn-delete-spacer" bindtap="onShowQr">
+      查看二维码
+    </t-button>
+  </view>
+</view>
+
+<t-dialog
+  visible="{{showDeleteDialog}}"
+  title="确认删除"
+  content="删除后器材将标记为已退役，确认删除？"
+  confirm-btn="确认删除"
+  cancel-btn="取消"
+  bindconfirm="onDeleteConfirm"
+  bindcancel="onDeleteCancel"
+/>

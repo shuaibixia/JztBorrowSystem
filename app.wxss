@@ -1,0 +1,372 @@
+page {
+  /* Canonical product UI tokens. Keep legacy aliases below while page groups migrate. */
+  --c1: #245F92;
+  --c1-bg: rgba(36, 95, 146, 0.10);
+  --c1-hover: #1E527F;
+  --c1-active: #184468;
+
+  --bg: #F7F8FA;
+  --surface: #FFFFFF;
+  --bg-sec: #F2F4F7;
+  --bg-hover: #EDF1F5;
+
+  --t0: #1D1D1F;
+  --t1: #424245;
+  --t2: #6E6E73;
+  --t3: #86868B;
+
+  --line: #CFD5DD;
+  --line-lt: #E6E9EE;
+  --line-soft: #E6E9EE;
+
+  --ok: #16A34A;
+  --warn: #D97706;
+  --err: #DC2626;
+  --err-bg: rgba(220, 38, 38, 0.08);
+  --ok-bg: rgba(22, 163, 74, 0.10);
+  --warn-bg: rgba(217, 119, 6, 0.10);
+
+  /* 4px spacing grid. 8rpx is 4px at the 375px design width. */
+  --space-1: 8rpx;
+  --space-2: 16rpx;
+  --space-3: 24rpx;
+  --space-4: 32rpx;
+  --space-5: 40rpx;
+  --space-6: 48rpx;
+  --space-8: 64rpx;
+
+  --pt: 176rpx;
+  --pb: 40rpx;
+  --pbf: 220rpx;
+  --tab-page-bottom: 152rpx;
+  --mx: 32rpx;
+  --gap: 32rpx;
+  --app-gap: 32rpx;
+  --app-page-top: var(--pt);
+  --app-page-bottom-form: var(--pbf);
+  --bottom-bar-y: 16rpx;
+  --state-pad: 64rpx 0;
+  --state-pad-compact: 40rpx 0;
+  --error-pad: 16rpx 20rpx;
+
+  /* Controls use 8px; content surfaces use 12px. */
+  --r-control: 16rpx;
+  --r-content: 24rpx;
+  --r-pill: 999rpx;
+  --r-sm: var(--r-control);
+  --r: var(--r-content);
+  --r-lg: var(--r-content);
+
+  /* A surface gets either a divider or a shadow, never both. */
+  --shadow-card: none;
+  --shadow-float: 0 4rpx 12rpx rgba(29, 29, 31, 0.12);
+
+  --type-display: 24px;
+  --type-heading: 18px;
+  --type-body: 15px;
+  --type-label: 14px;
+  --type-meta: 12px;
+
+  /* Legacy aliases for pages that are not yet rebuilt. */
+  --f1: var(--type-body);
+  --f2: var(--type-body);
+  --f3: var(--type-label);
+  --f4: var(--type-meta);
+
+  background: var(--bg);
+  color: var(--t0);
+  font-size: var(--f2);
+  line-height: 1.5;
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Segoe UI', sans-serif;
+
+  --td-navbar-bg-color: var(--surface);
+  --td-navbar-color: var(--t0);
+  --td-bg-color-container: var(--surface);
+  --td-bg-color-secondarycontainer: var(--bg-sec);
+  --td-text-color-primary: var(--t0);
+  --td-text-color-secondary: var(--t2);
+  --td-component-border: var(--line);
+  --td-tab-bar-bg-color: var(--surface);
+  --td-tab-bar-border-color: var(--line-soft);
+  --td-tab-bar-color: var(--t3);
+  --td-tab-bar-active-color: var(--c1);
+}
+
+.page-container {
+  padding-top: var(--pt);
+  padding-bottom: var(--pb);
+  background: var(--bg);
+}
+
+.loading-more {
+  display: flex;
+  justify-content: center;
+  padding: 28rpx 0;
+}
+
+.list-end {
+  text-align: center;
+  padding: 20rpx 0 36rpx;
+  font-size: var(--f4);
+  color: var(--t3);
+}
+
+.state-panel {
+  text-align: center;
+}
+
+.inline-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  padding: 20rpx var(--mx);
+  font-size: var(--f3);
+  color: var(--err);
+}
+
+.action-error {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-1);
+  border-radius: var(--r-sm);
+  background: var(--err-bg);
+  color: var(--err);
+}
+
+.action-error text {
+  flex: 1;
+  min-width: 0;
+  word-break: break-all;
+}
+
+.bottom-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  box-sizing: border-box;
+  padding: var(--bottom-bar-y) var(--mx);
+  padding-bottom: calc(var(--bottom-bar-y) + env(safe-area-inset-bottom));
+  background: var(--surface);
+  border-top: 1rpx solid var(--line-soft);
+}
+
+.bottom-action {
+  min-width: 0;
+}
+
+.od-page {
+  padding: var(--pt) var(--mx) var(--pb);
+  background: var(--bg);
+}
+
+.od-card,
+.od-surface {
+  background: var(--surface);
+  border: 1rpx solid var(--line-soft);
+  border-radius: var(--r);
+}
+
+.od-section {
+  margin-bottom: var(--gap);
+}
+
+.od-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16rpx;
+  margin-bottom: 16rpx;
+}
+
+.od-section-title {
+  min-width: 0;
+  font-size: var(--type-heading);
+  font-weight: 600;
+  color: var(--t0);
+}
+
+.od-section-link {
+  flex: 0 0 auto;
+  color: var(--c1);
+  font-size: var(--f3);
+}
+
+.od-list-row {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  padding: 24rpx;
+  background: var(--surface);
+  border-bottom: 1rpx solid var(--line-soft);
+}
+
+.od-list-row:last-child {
+  border-bottom: 0;
+}
+
+/* Shared OpenDesign page patterns. Page styles only add what is specific to a flow. */
+.od-toolbar {
+  margin: 0 var(--mx) 24rpx;
+}
+
+.od-page-heading,
+.od-page-subheading,
+.od-eyebrow {
+  display: block;
+}
+
+.od-page-heading {
+  color: var(--t0);
+  font-size: var(--type-display);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.od-page-subheading {
+  margin-top: 8rpx;
+  overflow: hidden;
+  color: var(--t2);
+  font-size: var(--f3);
+  line-height: 1.55;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.od-eyebrow {
+  margin-bottom: 8rpx;
+  color: var(--c1);
+  font-size: var(--f4);
+  font-weight: 600;
+}
+
+.od-card-list {
+  margin: 0 var(--mx);
+  overflow: hidden;
+  border: 1rpx solid var(--line-soft);
+  border-radius: var(--r);
+  background: var(--surface);
+}
+
+.od-inline-search {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  min-height: 80rpx;
+  padding: 0 20rpx;
+  border: 1rpx solid var(--line-soft);
+  border-radius: var(--r);
+  background: var(--surface);
+}
+
+.od-inline-search input {
+  flex: 1;
+  min-width: 0;
+  height: 80rpx;
+  color: var(--t0);
+  font-size: var(--f3);
+}
+
+.od-form-page {
+  padding: var(--pt) var(--mx) var(--pbf);
+}
+
+.od-form-card {
+  overflow: hidden;
+  border: 1rpx solid var(--line-soft);
+  border-radius: var(--r);
+  background: var(--surface);
+}
+
+.od-field-group + .od-field-group {
+  margin-top: 24rpx;
+}
+
+.od-field-label {
+  display: block;
+  margin: 0 0 10rpx;
+  color: var(--t1);
+  font-size: var(--f3);
+  font-weight: 500;
+}
+
+.od-field-input {
+  min-height: 84rpx;
+  padding: 0 20rpx;
+  border: 1rpx solid var(--line-soft);
+  border-radius: var(--r-sm);
+  background: var(--bg-sec);
+  color: var(--t0);
+  font-size: var(--f2);
+}
+
+.od-empty-copy {
+  display: block;
+  margin-top: 10rpx;
+  color: var(--t2);
+  font-size: var(--f3);
+}
+
+.od-action-sheet {
+  display: flex;
+  flex-direction: column;
+  gap: 18rpx;
+  padding: 20rpx 0 32rpx;
+}
+
+.od-action-sheet .od-field-label {
+  margin-bottom: -4rpx;
+}
+
+@media (prefers-color-scheme: light) {
+  page, .page {
+    --td-brand-color-1: rgba(36, 95, 146, 0.08);
+    --td-brand-color-2: rgba(36, 95, 146, 0.16);
+    --td-brand-color-3: #B5D0E8;
+    --td-brand-color-4: #8CB6D7;
+    --td-brand-color-5: #5C8DB8;
+    --td-brand-color-6: #245F92;
+    --td-brand-color-7: #1E527F;
+    --td-brand-color-8: #19476E;
+    --td-brand-color-9: #143C5E;
+    --td-brand-color-10: #0F324F;
+    --td-primary-color-1: var(--td-brand-color-1);
+    --td-primary-color-2: var(--td-brand-color-2);
+    --td-primary-color-3: var(--td-brand-color-3);
+    --td-primary-color-4: var(--td-brand-color-4);
+    --td-primary-color-5: var(--td-brand-color-5);
+    --td-primary-color-6: var(--td-brand-color-6);
+    --td-primary-color-7: var(--td-brand-color-7);
+    --td-primary-color-8: var(--td-brand-color-8);
+    --td-primary-color-9: var(--td-brand-color-9);
+    --td-primary-color-10: var(--td-brand-color-10);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  page {
+    --bg: #151518;
+    --surface: #1D1D21;
+    --bg-sec: #242429;
+    --bg-hover: #2D2D33;
+    --t0: #F5F5F7;
+    --t1: #D1D1D6;
+    --t2: #A1A1A6;
+    --t3: #73737A;
+    --line: #36363D;
+    --line-lt: #2A2A30;
+    --line-soft: #25252B;
+    --td-navbar-bg-color: var(--surface);
+    --td-navbar-color: var(--t0);
+    --td-bg-color-container: var(--surface);
+    --td-bg-color-secondarycontainer: var(--bg-sec);
+    --td-text-color-primary: var(--t0);
+    --td-text-color-secondary: var(--t2);
+    --td-tab-bar-bg-color: var(--surface);
+    --td-tab-bar-border-color: var(--line-soft);
+    --td-tab-bar-color: var(--t3);
+    --td-tab-bar-active-color: var(--c1);
+  }
+}

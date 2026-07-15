@@ -1,0 +1,7 @@
+<view class="rc" hover-class="rc--pressed" bindtap="onTap">
+  <view class="rc-top">
+    <text class="rc-eq">{{reservation.equipmentName || '预约'}}</text>
+    <t-tag size="small" variant="light" theme="{{statusInfo.color === 'green' ? 'success' : statusInfo.color === 'orange' ? 'warning' : 'default'}}">{{statusInfo.label}}</t-tag>
+  </view>
+  <text class="rc-sub">{{dateStr}}</text>
+</view>

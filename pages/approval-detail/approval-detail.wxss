@@ -1,0 +1,122 @@
+.approval-detail-page {
+  padding: var(--space-4) var(--mx) var(--pbf);
+}
+
+.bottom-bar {
+  display: flex;
+  gap: var(--space-2);
+  padding: var(--bottom-bar-y) var(--mx);
+  padding-bottom: calc(var(--bottom-bar-y) + env(safe-area-inset-bottom));
+}
+
+.bottom-action {
+  flex: 1;
+  min-width: 0;
+}
+
+.state-panel {
+  padding: var(--state-pad);
+  text-align: center;
+}
+
+.status-card {
+  margin-bottom: var(--space-3);
+  padding: 24rpx;
+  border-radius: var(--r-content);
+  background: var(--surface);
+}
+
+.status-card.status-pending { background: var(--warn-bg); }
+.status-card.status-approved { background: var(--ok-bg); }
+.status-card.status-rejected { background: var(--err-bg); }
+
+.status-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.status-label {
+  min-width: 0;
+  color: var(--t0);
+  font-size: var(--type-heading);
+  font-weight: 600;
+}
+
+.status-sub {
+  display: block;
+  margin-top: var(--space-1);
+  color: var(--t2);
+  font-size: var(--type-meta);
+}
+
+.action-error {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-1);
+  margin-bottom: var(--space-3);
+  padding: var(--error-pad);
+  border-radius: var(--r-control);
+  background: var(--err-bg);
+  color: var(--err);
+  font-size: var(--type-label);
+}
+
+.action-error text {
+  flex: 1;
+  min-width: 0;
+  word-break: break-all;
+}
+
+.info-list {
+  overflow: hidden;
+  border: 1rpx solid var(--line-soft);
+  border-radius: var(--r-content);
+  background: var(--surface);
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  min-height: 80rpx;
+  padding: 20rpx 24rpx;
+  border-bottom: 1rpx solid var(--line-soft);
+}
+
+.info-row.last,
+.info-row:last-child {
+  border-bottom: 0;
+}
+
+.info-label {
+  flex: 0 0 auto;
+  color: var(--t2);
+  font-size: var(--type-label);
+}
+
+.info-value {
+  flex: 1;
+  min-width: 0;
+  color: var(--t0);
+  font-size: var(--type-label);
+  text-align: right;
+  word-break: break-all;
+}
+
+.info-value.danger {
+  color: var(--err);
+}
+
+.sheet-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3) 0 var(--space-4);
+}
+
+.field-label {
+  color: var(--t1);
+  font-size: var(--type-label);
+}

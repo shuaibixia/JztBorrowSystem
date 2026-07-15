@@ -1,0 +1,17 @@
+{
+  "usingComponents": {
+    "t-navbar": "tdesign-miniprogram/navbar/navbar",
+    "t-tag": "tdesign-miniprogram/tag/tag",
+    "t-button": "tdesign-miniprogram/button/button",
+    "t-dialog": "tdesign-miniprogram/dialog/dialog",
+    "t-action-sheet": "tdesign-miniprogram/action-sheet/action-sheet",
+    "t-textarea": "tdesign-miniprogram/textarea/textarea",
+    "t-rate": "tdesign-miniprogram/rate/rate",
+    "t-skeleton": "tdesign-miniprogram/skeleton/skeleton",
+    "t-empty": "tdesign-miniprogram/empty/empty",
+    "t-icon": "tdesign-miniprogram/icon/icon",
+    "t-tabs": "tdesign-miniprogram/tabs/tabs",
+    "t-tab-panel": "tdesign-miniprogram/tab-panel/tab-panel",
+    "qr-display": "/components/qr-display/qr-display"
+  }
+}

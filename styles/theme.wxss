@@ -1,0 +1,25 @@
+page {
+  --c1: #2383E2;
+  --c1-bg: rgba(35, 131, 226, 0.08);
+  --bg: #FFFFFF;
+  --bg-sec: #F7F7F5;
+  --bg-hover: #F1F1EF;
+  --t0: #37352F;
+  --t1: #787774;
+  --t2: #B4B4B0;
+  --t3: #E3E2E0;
+  --line: #E9E9E7;
+  --line-lt: #F1F1EF;
+  --ok: #0F7B6C;
+  --warn: #D9730D;
+  --err: #E03E3E;
+  --pt: 176rpx;
+  --pb: 32rpx;
+  --mx: 40rpx;
+  --gap: 24rpx;
+  --r: 4rpx;
+  --f1: 14px;
+  --f2: 13px;
+  --f3: 12px;
+  --f4: 11px;
+}

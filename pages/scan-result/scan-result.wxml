@@ -1,0 +1,40 @@
+<t-navbar title="扫码结果" left-arrow />
+
+<view class="page-container result-page">
+  <view wx:if="{{loading}}" class="state-panel"><t-loading size="44rpx" theme="circular" /></view>
+  <view wx:elif="{{error}}" class="state-panel"><t-empty icon="error-circle" description="{{errorMessage || '加载失败'}}" /><t-button theme="primary" size="small" bindtap="onRetryTap">重新加载</t-button></view>
+  <view wx:elif="{{notFound}}" class="state-panel"><t-empty icon="search" description="未找到器材" /><text class="state-sub">二维码 {{qr}} 未匹配</text><t-button theme="primary" size="small" bindtap="onScanAgain">重新扫码</t-button></view>
+
+  <block wx:elif="{{equipment}}">
+    <view class="result-hero">
+      <image wx:if="{{equipment.imageUrl}}" src="{{equipment.imageUrl}}" class="hero-image" mode="aspectFill" />
+      <view wx:else class="hero-placeholder"><t-icon name="camera" size="96rpx" /></view>
+      <view class="hero-status"><t-tag size="small" variant="light" theme="{{equipment.statusInfo.color === 'green' ? 'success' : equipment.statusInfo.color === 'orange' ? 'warning' : equipment.statusInfo.color === 'red' ? 'danger' : 'default'}}">{{equipment.statusInfo.label}}</t-tag></view>
+    </view>
+    <view class="result-sheet">
+      <text class="equipment-name">{{equipment.name || '未命名器材'}}</text>
+      <text class="equipment-code">{{equipment.qrCode || '暂无编号'}}</text>
+      <view class="tag-row"><t-tag size="small" variant="outline">{{equipment.categoryInfo.label}}</t-tag></view>
+      <text wx:if="{{equipment.description}}" class="equipment-description">{{equipment.description}}</text>
+
+      <text class="detail-section-title">基本信息</text>
+      <view class="info-list">
+        <view wx:if="{{equipment.brand}}" class="info-row"><text class="info-label">品牌</text><text class="info-value">{{equipment.brand}}</text></view>
+        <view wx:if="{{equipment.model}}" class="info-row"><text class="info-label">型号</text><text class="info-value">{{equipment.model}}</text></view>
+        <view wx:if="{{equipment.serialNumber}}" class="info-row"><text class="info-label">序列号</text><text class="info-value">{{equipment.serialNumber}}</text></view>
+        <view wx:if="{{equipment.location}}" class="info-row"><text class="info-label">存放位置</text><text class="info-value">{{equipment.location}}</text></view>
+        <view wx:if="{{equipment.checkedOutAtStr}}" class="info-row"><text class="info-label">借出时间</text><text class="info-value">{{equipment.checkedOutAtStr}}</text></view>
+      </view>
+    </view>
+  </block>
+</view>
+
+<view wx:if="{{equipment && !loading && !error}}" class="bottom-bar result-bottom-bar">
+  <view wx:if="{{actionError}}" class="action-error"><t-icon name="error-circle" size="26rpx" /><text>{{actionError}}</text></view>
+  <view class="minor-actions"><t-button variant="text" size="small" bindtap="onScanAgain">继续扫码</t-button><t-button variant="text" size="small" bindtap="onViewDetail">查看详情</t-button></view>
+  <t-button theme="{{buttonInfo.theme}}" size="large" block disabled="{{buttonInfo.disabled}}" loading="{{actionLoading}}" bindtap="onActionTap">{{buttonInfo.text}}</t-button>
+</view>
+
+<t-action-sheet visible="{{showDialog && dialogType === 'checkout'}}" description="出库" bindcancel="onDialogCancel"><view class="sheet-content"><text class="field-label">用途</text><t-textarea placeholder="填写借用用途" value="{{purpose}}" bindchange="onPurposeInput" maxlength="200" autosize /><t-button theme="primary" size="large" block loading="{{actionLoading}}" bindtap="onDialogConfirm">确认出库</t-button></view></t-action-sheet>
+<t-action-sheet visible="{{showApprovalDialog}}" description="借用申请" bindcancel="onApprovalCancel"><view class="sheet-content"><text class="field-label">用途</text><t-textarea placeholder="填写申请用途" value="{{approvalPurpose}}" bindchange="onApprovalPurposeInput" maxlength="200" autosize /><t-button theme="primary" size="large" block loading="{{actionLoading}}" bindtap="onApprovalConfirm">提交申请</t-button></view></t-action-sheet>
+<t-action-sheet visible="{{showDialog && dialogType === 'return'}}" description="归还" bindcancel="onDialogCancel"><view class="sheet-content"><text class="field-label">状况</text><t-rate value="{{conditionIndex + 1}}" count="{{4}}" bindchange="onConditionChange" /><text class="condition-label">{{conditionOptions[conditionIndex]}}</text><text class="field-label">备注</text><t-textarea placeholder="可选" value="{{remark}}" bindchange="onRemarkInput" maxlength="200" autosize /><t-button theme="primary" size="large" block loading="{{actionLoading}}" bindtap="onDialogConfirm">确认归还</t-button></view></t-action-sheet>

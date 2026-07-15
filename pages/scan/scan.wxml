@@ -1,0 +1,42 @@
+<t-navbar title="扫码借还" />
+
+<view class="page-container scan-page">
+  <view class="scan-primary-zone">
+    <view class="scan-entry" hover-class="scan-entry--pressed" bindtap="onScanTap">
+      <view class="scan-entry-icon"><t-icon name="scan" size="44rpx" /></view>
+      <view class="scan-entry-copy">
+        <text class="scan-entry-title">扫描器材二维码</text>
+        <text class="scan-entry-subtitle">快速识别器材与当前状态</text>
+      </view>
+      <t-icon name="chevron-right" size="28rpx" class="scan-entry-arrow" />
+    </view>
+  </view>
+
+  <view class="section-head">
+    <text class="section-title">当前借出</text>
+  </view>
+
+  <view wx:if="{{recentLoading}}" class="recent-state">
+    <t-loading size="40rpx" theme="circular" />
+  </view>
+
+  <view wx:elif="{{recentError}}" class="recent-state">
+    <t-empty icon="error-circle" description="{{recentErrorMessage || '加载失败'}}" />
+    <t-button theme="primary" size="small" bindtap="onRetryRecent">重试</t-button>
+  </view>
+
+  <view wx:elif="{{recentRecords.length > 0}}" class="recent-list">
+    <view wx:for="{{recentRecords}}" wx:key="_id" data-id="{{item.equipmentId}}" bindtap="onRecentTap" hover-class="recent-row--pressed" class="recent-row">
+      <t-icon name="time" size="30rpx" class="recent-icon" />
+      <view class="recent-main">
+        <text class="recent-title">{{item.equipmentName}}</text>
+        <text class="recent-sub">{{item.timeStr}} 借出</text>
+      </view>
+      <t-icon name="chevron-right" size="24rpx" class="row-arrow" />
+    </view>
+  </view>
+
+  <view wx:else class="recent-state compact">
+    <t-empty icon="browse" description="暂无正在借出的器材" />
+  </view>
+</view>

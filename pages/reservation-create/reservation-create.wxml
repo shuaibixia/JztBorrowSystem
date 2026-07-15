@@ -1,0 +1,82 @@
+<view>
+  <t-navbar title="预约器材" left-arrow />
+
+  <view class="page-container reservation-create-page">
+    <view wx:if="{{equipmentError}}" class="state-panel">
+      <t-empty icon="error-circle" description="{{equipmentErrorMessage || '器材信息加载失败'}}" />
+      <view class="state-actions">
+        <t-button theme="primary" size="small" bindtap="onRetryEquipment">重试</t-button>
+        <t-button theme="default" size="small" bindtap="onBackTap">返回</t-button>
+      </view>
+    </view>
+
+    <block wx:else>
+      <view class="form-context">
+        <text class="form-sub">选择使用时间，提交后等待管理员确认。</text>
+      </view>
+
+      <view wx:if="{{actionError}}" class="action-error"><t-icon name="error-circle" size="26rpx" /><text>{{actionError}}</text></view>
+
+      <view class="form-section">
+        <t-cell-group title="器材信息">
+          <t-cell title="器材" note="{{loadingEquipment ? '加载中' : (equipmentName || '未命名器材')}}" />
+        </t-cell-group>
+      </view>
+
+      <view class="form-section">
+        <t-cell-group title="预约时间">
+          <t-cell title="开始时间" note="{{startDisplay}}" arrow bindtap="onShowStartPicker" />
+          <t-cell title="结束时间" note="{{endDisplay}}" arrow bindtap="onShowEndPicker" />
+        </t-cell-group>
+      </view>
+
+      <view class="form-section">
+        <t-cell-group title="预约说明">
+          <view class="purpose-section">
+            <t-textarea
+              placeholder="请填写预约用途（可选）"
+              value="{{purpose}}"
+              bindchange="onPurposeInput"
+              maxlength="200"
+              autosize
+            />
+          </view>
+        </t-cell-group>
+      </view>
+
+      <view class="btn-section">
+        <t-button theme="primary" size="large" block disabled="{{loadingEquipment}}" loading="{{saving}}" bindtap="onSubmit">
+          提交预约
+        </t-button>
+      </view>
+    </block>
+  </view>
+
+  <t-date-time-picker
+    title="选择开始时间"
+    visible="{{showStartPicker}}"
+    value="{{startTimestamp}}"
+    mode="{{dateTimeMode}}"
+    start="{{pickerStart}}"
+    end="{{pickerEnd}}"
+    format="YYYY-MM-DD HH:mm"
+    confirm-btn="确认"
+    cancel-btn="取消"
+    bindconfirm="onStartConfirm"
+    bindcancel="onPickerCancel"
+  />
+
+  <t-date-time-picker
+    title="选择结束时间"
+    visible="{{showEndPicker}}"
+    value="{{endTimestamp}}"
+    mode="{{dateTimeMode}}"
+    start="{{pickerStart}}"
+    end="{{pickerEnd}}"
+    format="YYYY-MM-DD HH:mm"
+    confirm-btn="确认"
+    cancel-btn="取消"
+    bindconfirm="onEndConfirm"
+    bindcancel="onPickerCancel"
+  />
+</view>

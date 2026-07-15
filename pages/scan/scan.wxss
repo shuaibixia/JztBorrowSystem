@@ -1,0 +1,142 @@
+.scan-page {
+  padding: 0 var(--mx) var(--tab-page-bottom);
+}
+
+.scan-primary-zone {
+  padding: 176rpx 0 var(--space-6);
+}
+
+.scan-entry {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 152rpx;
+  padding: 24rpx;
+  border: 1rpx solid rgba(36, 95, 146, 0.22);
+  border-radius: var(--r-content);
+  background: var(--surface);
+}
+
+.scan-entry--pressed {
+  background: var(--bg-hover);
+  transform: scale(0.985);
+}
+
+.scan-entry-icon {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: var(--r-control);
+  background: var(--c1-bg);
+  color: var(--c1);
+}
+
+.scan-entry-copy {
+  flex: 1;
+  min-width: 0;
+}
+
+.scan-entry-title,
+.scan-entry-subtitle {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.scan-entry-title {
+  color: var(--t0);
+  font-size: var(--type-body);
+  font-weight: 600;
+}
+
+.scan-entry-subtitle {
+  margin-top: 4rpx;
+  color: var(--t2);
+  font-size: var(--type-meta);
+}
+
+.scan-entry-arrow,
+.row-arrow {
+  flex: 0 0 auto;
+  color: var(--t3);
+}
+
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 0 var(--space-2);
+}
+
+.section-title {
+  color: var(--t0);
+  font-size: var(--type-heading);
+  font-weight: 600;
+}
+
+.recent-list {
+  overflow: hidden;
+  border: 1rpx solid var(--line-soft);
+  border-radius: var(--r-content);
+  background: var(--surface);
+}
+
+.recent-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+  min-height: 104rpx;
+  padding: 20rpx;
+}
+
+.recent-row + .recent-row {
+  border-top: 1rpx solid var(--line-soft);
+}
+
+.recent-row--pressed {
+  background: var(--bg-hover);
+}
+
+.recent-icon {
+  flex: 0 0 auto;
+  color: var(--t3);
+}
+
+.recent-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.recent-title,
+.recent-sub {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.recent-title {
+  color: var(--t0);
+  font-size: var(--type-label);
+  font-weight: 600;
+}
+
+.recent-sub {
+  margin-top: 4rpx;
+  color: var(--t2);
+  font-size: var(--type-meta);
+}
+
+.recent-state {
+  padding: 56rpx 0;
+  text-align: center;
+}
+
+.recent-state.compact {
+  padding-top: var(--space-4);
+}

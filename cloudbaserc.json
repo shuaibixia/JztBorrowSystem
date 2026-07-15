@@ -1,0 +1,84 @@
+{
+  "envId": "studentpress-d6gj8ugww75193e6d",
+  "functionRoot": "cloudfunctions",
+  "functions": [
+    {
+      "name": "user",
+      "handler": "index.main",
+      "runtime": "Nodejs18.15",
+      "timeout": 20,
+      "installDependency": true
+    },
+    {
+      "name": "equipment",
+      "handler": "index.main",
+      "runtime": "Nodejs18.15",
+      "timeout": 20,
+      "installDependency": true
+    },
+    {
+      "name": "record",
+      "handler": "index.main",
+      "runtime": "Nodejs18.15",
+      "timeout": 20,
+      "installDependency": true
+    },
+    {
+      "name": "approval",
+      "handler": "index.main",
+      "runtime": "Nodejs18.15",
+      "timeout": 20,
+      "installDependency": true
+    },
+    {
+      "name": "notification",
+      "handler": "index.main",
+      "runtime": "Nodejs18.15",
+      "timeout": 20,
+      "installDependency": true,
+      "triggers": [
+        {
+          "name": "checkOverdueTrigger",
+          "type": "timer",
+          "config": "0 0 9 * * * *"
+        }
+      ]
+    },
+    {
+      "name": "reservation",
+      "handler": "index.main",
+      "runtime": "Nodejs18.15",
+      "timeout": 20,
+      "installDependency": true
+    },
+    {
+      "name": "maintenance",
+      "handler": "index.main",
+      "runtime": "Nodejs18.15",
+      "timeout": 20,
+      "installDependency": true
+    },
+    {
+      "name": "stats",
+      "handler": "index.main",
+      "runtime": "Nodejs18.15",
+      "timeout": 20,
+      "installDependency": true
+    },
+    {
+      "name": "migration",
+      "handler": "index.main",
+      "runtime": "Nodejs18.15",
+      "timeout": 20,
+      "installDependency": true
+    },
+    {
+      "name": "admin-web",
+      "handler": "index.main",
+      "runtime": "Nodejs18.15",
+      "timeout": 20,
+      "installDependency": true,
+      "type": "HTTP"
+    }
+  ]
+}

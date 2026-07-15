@@ -1,0 +1,28 @@
+{
+  "name": "photography-equipment-miniprogram",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "node tests/domain.test.js && node tests/admin-web.test.js && node tests/equipment-admin.test.js && node tests/admin-web-operations.test.js",
+    "check:syntax": "node scripts/check-syntax.js",
+    "check:wxml": "node scripts/check-wxml-components.js",
+    "check:compat": "node scripts/check-compat-scan.js",
+    "check:functions": "node scripts/check-function-lists.js",
+    "check:all": "npm run test && npm run check:syntax && npm run check:wxml && npm run check:compat && npm run check:functions",
+    "sync:cloud-shared": "node scripts/sync-cloud-shared.js",
+    "deploy:admin-web": "tcb fn deploy admin-web --envId studentpress-d6gj8ugww75193e6d",
+    "deploy:user": "tcb fn deploy user --envId studentpress-d6gj8ugww75193e6d",
+    "deploy:equipment": "tcb fn deploy equipment --envId studentpress-d6gj8ugww75193e6d",
+    "deploy:record": "tcb fn deploy record --envId studentpress-d6gj8ugww75193e6d",
+    "deploy:approval": "tcb fn deploy approval --envId studentpress-d6gj8ugww75193e6d",
+    "deploy:notification": "tcb fn deploy notification --envId studentpress-d6gj8ugww75193e6d",
+    "deploy:reservation": "tcb fn deploy reservation --envId studentpress-d6gj8ugww75193e6d",
+    "deploy:maintenance": "tcb fn deploy maintenance --envId studentpress-d6gj8ugww75193e6d",
+    "deploy:stats": "tcb fn deploy stats --envId studentpress-d6gj8ugww75193e6d",
+    "deploy:migration": "tcb fn deploy migration --envId studentpress-d6gj8ugww75193e6d",
+    "deploy:all": "tcb fn deploy --envId studentpress-d6gj8ugww75193e6d"
+  },
+  "dependencies": {
+    "weapp-qrcode": "^1.0.0"
+  }
+}

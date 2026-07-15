@@ -1,0 +1,102 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+
+.eq-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: 100%;
+  overflow: hidden;
+  border: 1rpx solid var(--line-soft, #E6E9EE);
+  border-radius: var(--r, 24rpx);
+  background: var(--surface, #FFFFFF);
+}
+
+.eq-card--pressed {
+  background: var(--bg-hover, #EDF1F5);
+  transform: scale(0.985);
+}
+
+.eq-media {
+  position: relative;
+  flex: 0 0 auto;
+  width: 100%;
+  height: 190rpx;
+  background: var(--bg-sec, #F2F4F7);
+}
+
+.eq-thumb,
+.eq-thumb-placeholder {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.eq-thumb-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--t3, #86868B);
+}
+
+.eq-status {
+  position: absolute;
+  top: 12rpx;
+  right: 12rpx;
+}
+
+.eq-card-info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  padding: 18rpx;
+}
+
+.eq-card-name,
+.eq-card-code,
+.eq-card-meta {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.eq-card-name {
+  color: var(--t0, #1D1D1F);
+  font-size: var(--type-body, 15px);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.eq-card-code {
+  margin-top: 4rpx;
+  color: var(--t3, #86868B);
+  font-size: var(--type-meta, 12px);
+}
+
+.eq-card-meta {
+  margin-top: 8rpx;
+  color: var(--t2, #6E6E73);
+  font-size: var(--type-meta, 12px);
+}
+
+.eq-card-location {
+  display: flex;
+  align-items: center;
+  gap: 4rpx;
+  min-width: 0;
+  margin-top: auto;
+  padding-top: 12rpx;
+  color: var(--t3, #86868B);
+  font-size: var(--type-meta, 12px);
+}
+
+.eq-card-location text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

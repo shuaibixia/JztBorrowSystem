@@ -1,0 +1,65 @@
+{
+  "darkmode": true,
+  "pages": [
+    "pages/index/index",
+    "pages/scan/scan",
+    "pages/profile/profile",
+    "pages/equipment-detail/equipment-detail",
+    "pages/equipment-list/equipment-list",
+    "pages/scan-result/scan-result",
+    "pages/record-list/record-list",
+    "pages/equipment-edit/equipment-edit",
+    "pages/approval-list/approval-list",
+    "pages/approval-detail/approval-detail",
+    "pages/member-list/member-list",
+    "pages/admin-stats/admin-stats",
+    "pages/notification-center/notification-center",
+    "pages/maintenance-log/maintenance-log",
+    "pages/reservation-create/reservation-create",
+    "pages/reservation-list/reservation-list",
+    "pages/reservation-detail/reservation-detail",
+    "pages/data-import/data-import",
+    "pages/admin-setup/admin-setup"
+  ],
+  "subpackages": [],
+  "tabBar": {
+    "custom": true,
+    "color": "#86868B",
+    "selectedColor": "#245F92",
+    "backgroundColor": "@tabBgColor",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/record-list/record-list",
+        "text": "记录"
+      },
+      {
+        "pagePath": "pages/scan/scan",
+        "text": "扫码"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的"
+      }
+    ]
+  },
+  "themeLocation": "theme.json",
+  "usingComponents": {
+    "t-button": "tdesign-miniprogram/button/button",
+    "t-icon": "tdesign-miniprogram/icon/icon",
+    "t-navbar": "tdesign-miniprogram/navbar/navbar"
+  },
+  "window": {
+    "navigationBarTitleText": "摄影器材管理",
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "@navTxtStyle"
+  },
+  "resolveAlias": {
+    "@behaviors/*": "behaviors/*"
+  },
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

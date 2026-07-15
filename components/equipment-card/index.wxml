@@ -1,0 +1,17 @@
+<view class="eq-card" hover-class="eq-card--pressed" bindtap="onTap">
+  <view class="eq-media">
+    <image wx:if="{{equipment.imageUrl}}" src="{{equipment.imageUrl}}" class="eq-thumb" mode="aspectFill" />
+    <view wx:else class="eq-thumb-placeholder"><t-icon name="camera" size="46rpx" /></view>
+    <view class="eq-status"><status-tag status="{{equipment.status}}" /></view>
+  </view>
+
+  <view class="eq-card-info">
+    <text class="eq-card-name">{{equipment.name || '未命名器材'}}</text>
+    <text class="eq-card-code">{{equipment.qrCode || '暂无编号'}}</text>
+    <text class="eq-card-meta">{{equipment.brand || equipment.model || categoryInfo.label || '器材'}}</text>
+    <view wx:if="{{equipment.location}}" class="eq-card-location">
+      <t-icon name="location" size="20rpx" />
+      <text>{{equipment.location}}</text>
+    </view>
+  </view>
+</view>

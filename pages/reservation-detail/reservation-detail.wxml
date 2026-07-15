@@ -1,0 +1,43 @@
+<t-navbar title="预约详情" left-arrow />
+<view class="page-container reservation-detail-page">
+  <t-skeleton loading="{{loading}}" rows="3" animate>
+    <view wx:if="{{error}}" class="state-panel">
+      <t-empty icon="error-circle" description="{{errorMessage || '预约详情加载失败'}}" />
+      <t-button theme="primary" size="small" bindtap="onRetryTap">重试</t-button>
+    </view>
+
+    <view wx:elif="{{notFound}}" class="state-panel">
+      <t-empty icon="calendar" description="预约不存在" />
+      <t-button theme="primary" size="small" bindtap="onBackTap">返回</t-button>
+    </view>
+
+    <block wx:elif="{{reservation}}">
+      <view class="status-card status-{{reservation.status}}">
+        <view class="status-main">
+          <text class="status-label">预约状态</text>
+          <t-tag size="small" variant="light" theme="{{reservation.status === 'confirmed' || reservation.status === 'completed' ? 'success' : reservation.status === 'pending' ? 'warning' : 'default'}}">{{statusInfo.label}}</t-tag>
+        </view>
+        <text class="status-sub">{{reservation.status === 'pending' ? '等待管理员确认' : reservation.status === 'confirmed' ? '已确认，请按预约时间使用' : reservation.status === 'cancelled' ? '该预约已取消' : '该预约已完成'}}</text>
+      </view>
+
+      <view wx:if="{{actionError}}" class="action-error"><t-icon name="error-circle" size="26rpx" /><text>{{actionError}}</text></view>
+
+      <view class="info-list">
+        <view class="info-row"><text class="info-label">器材</text><text class="info-value">{{reservation.equipmentName || '—'}}</text></view>
+        <view class="info-row"><text class="info-label">时间</text><text class="info-value">{{dateStr}}</text></view>
+        <view wx:if="{{reservation.purpose}}" class="info-row"><text class="info-label">用途</text><text class="info-value">{{reservation.purpose}}</text></view>
+        <view class="info-row last"><text class="info-label">创建</text><text class="info-value">{{createdAtStr}}</text></view>
+      </view>
+    </block>
+  </t-skeleton>
+</view>
+<view wx:if="{{reservation && !loading && !error && !notFound && (canCancelReservation || canConfirmReservation)}}" class="bottom-bar">
+  <view wx:if="{{canCancelReservation}}" class="bottom-action">
+    <t-button theme="default" size="large" block loading="{{cancelling}}" disabled="{{confirming}}" bindtap="onCancelTap">取消预约</t-button>
+  </view>
+  <view wx:if="{{canConfirmReservation}}" class="bottom-action">
+    <t-button theme="primary" size="large" block loading="{{confirming}}" disabled="{{cancelling}}" bindtap="onConfirmTap">确认</t-button>
+  </view>
+</view>
+<t-dialog visible="{{showCancelDialog}}" title="取消" confirm-btn="确认" cancel-btn="再想想" bindconfirm="onCancelConfirm" bindcancel="onCancelCancel"><text slot="content">确定取消？</text></t-dialog>
+<t-dialog visible="{{showConfirmDialog}}" title="确认预约" confirm-btn="确认" cancel-btn="取消" bindconfirm="onConfirmConfirm" bindcancel="onConfirmCancel"><text slot="content">确认后器材将被预留。</text></t-dialog>

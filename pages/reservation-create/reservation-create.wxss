@@ -1,0 +1,48 @@
+.reservation-create-page {
+  padding: var(--space-4) 0 var(--app-page-bottom-form);
+}
+
+.form-context {
+  margin: 0 var(--mx) var(--space-3);
+}
+
+.form-sub {
+  display: block;
+  color: var(--t2);
+  font-size: var(--type-label);
+  line-height: 1.55;
+}
+
+.form-section {
+  margin-bottom: var(--space-3);
+}
+
+.action-error {
+  margin: 0 var(--mx) var(--space-3);
+  padding: var(--error-pad);
+  border-radius: var(--r-control);
+  background: var(--err-bg);
+  color: var(--err);
+  font-size: var(--type-label);
+  line-height: 1.5;
+}
+
+.purpose-section {
+  padding: 16rpx 32rpx 24rpx;
+}
+
+.btn-section {
+  padding: var(--space-4) var(--mx) var(--space-6);
+}
+
+.state-panel {
+  padding: 72rpx var(--mx);
+  text-align: center;
+}
+
+.state-actions {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}

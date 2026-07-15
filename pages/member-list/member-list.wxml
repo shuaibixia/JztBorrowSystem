@@ -1,0 +1,55 @@
+<t-navbar title="成员管理" left-arrow />
+
+<view class="page-container member-page">
+  <view class="member-toolbar">
+    <view class="member-search">
+      <t-icon name="search" size="28rpx" />
+      <input placeholder="搜索昵称或姓名" value="{{keyword}}" bindinput="onSearchChange" />
+      <t-icon wx:if="{{keyword}}" name="close-circle-filled" size="28rpx" bindtap="onClearSearch" />
+    </view>
+    <view class="member-filter-row">
+      <text class="member-filter-label">按角色筛选</text>
+      <picker value="{{roleIndex}}" range="{{roleOptions}}" bindchange="onRoleChange">
+        <view class="member-filter">
+          <text>{{roleOptions[roleIndex]}}</text>
+          <t-icon name="chevron-down" size="24rpx" />
+        </view>
+      </picker>
+    </view>
+  </view>
+
+  <t-skeleton loading="{{loading && list.length === 0}}" rows="4" animate>
+    <view wx:if="{{error && list.length === 0}}" class="state-panel">
+      <t-empty icon="error-circle" description="{{errorMessage || '成员加载失败'}}" />
+      <t-button theme="primary" size="small" bindtap="onRetryList">重新加载</t-button>
+    </view>
+
+    <view wx:elif="{{list.length > 0}}" class="member-list">
+      <view wx:for="{{list}}" wx:key="_id" data-id="{{item._id}}" bindtap="onMemberTap" class="member-card">
+        <t-avatar class="member-avatar" image="{{item.avatarUrl}}" size="72rpx" />
+        <view class="member-main">
+          <view class="member-name-row">
+            <text class="member-name">{{item.nickName || item.studentName || '未命名成员'}}</text>
+            <t-tag size="small" variant="light" theme="{{item.role === 'superadmin' ? 'danger' : item.role === 'admin' ? 'warning' : 'default'}}">{{item.roleLabel}}</t-tag>
+            <t-tag wx:if="{{!item.isActive}}" size="small" variant="outline">已禁用</t-tag>
+          </view>
+          <text class="member-meta">{{item.studentId || '未绑定学号'}} · 加入于 {{item.createdAtStr}}</text>
+        </view>
+        <t-icon name="chevron-right" size="24rpx" class="member-arrow" />
+      </view>
+    </view>
+
+    <view wx:elif="{{!loading}}" class="state-panel">
+      <t-empty icon="usergroup" description="没有成员" />
+    </view>
+  </t-skeleton>
+
+  <view wx:if="{{error && list.length > 0}}" class="inline-error">
+    <text>{{errorMessage || '加载失败'}}</text>
+    <t-button variant="text" size="small" bindtap="onRetryList">重试</t-button>
+  </view>
+  <view wx:if="{{loading && list.length > 0}}" class="loading-more"><t-loading size="32rpx" theme="circular" /></view>
+  <view wx:if="{{!hasMore && list.length > 0}}" class="list-end">到底了</view>
+</view>
+
+<t-action-sheet visible="{{showAction}}" items="{{actions}}" cancel-text="取消" bindselect="onActionSelect" bindcancel="onActionCancel" />

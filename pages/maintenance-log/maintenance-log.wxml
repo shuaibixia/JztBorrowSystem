@@ -1,0 +1,57 @@
+<t-navbar title="维修记录" left-arrow />
+
+<view class="page-container maintenance-page">
+  <view wx:if="{{equipmentName}}" class="maintenance-context">
+    <text class="maintenance-context-name">{{equipmentName}}</text>
+    <text class="maintenance-context-copy">维修、保养与费用记录</text>
+  </view>
+
+  <t-skeleton loading="{{loading && list.length === 0}}" rows="3" animate>
+    <view wx:if="{{error && list.length === 0}}" class="state-panel">
+      <t-empty icon="error-circle" description="{{errorMessage || '维修记录加载失败'}}" />
+      <t-button theme="primary" size="small" bindtap="onRetryTap">重新加载</t-button>
+    </view>
+
+    <view wx:elif="{{list.length > 0}}" class="maintenance-list">
+      <view wx:for="{{list}}" wx:key="_id" class="maintenance-row">
+        <view class="maintenance-head">
+          <t-tag size="small" variant="light">{{item.typeInfo.label}}</t-tag>
+          <text class="maintenance-time">{{item.createdAtStr}}</text>
+        </view>
+        <text wx:if="{{item.description}}" class="maintenance-description">{{item.description}}</text>
+        <view wx:if="{{item.technician || item.cost > 0}}" class="maintenance-meta">
+          <text wx:if="{{item.technician}}">技术员：{{item.technician}}</text>
+          <text wx:if="{{item.cost > 0}}" class="maintenance-cost">¥{{item.cost}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view wx:elif="{{!loading}}" class="state-panel">
+      <t-empty icon="tools" description="没有维修记录" />
+    </view>
+  </t-skeleton>
+  <view wx:if="{{error && list.length > 0}}" class="inline-error">
+    <text>{{errorMessage || '加载失败'}}</text>
+    <t-button variant="text" size="small" bindtap="onRetryTap">重试</t-button>
+  </view>
+  <view wx:if="{{loading && list.length > 0}}" class="loading-more"><t-loading size="32rpx" theme="circular" /></view>
+  <view wx:if="{{!hasMore && list.length > 0}}" class="list-end">到底了</view>
+</view>
+
+<t-fab icon="add" bind:click="onAddTap" />
+
+<t-action-sheet visible="{{showDialog}}" description="添加维修" bindcancel="onDialogCancel">
+  <view class="maintenance-sheet">
+    <text class="field-label">类型</text>
+    <picker value="{{typeIndex}}" range="{{typeOptions}}" bindchange="onTypeChange">
+      <view class="picker-field"><text>{{typeOptions[typeIndex]}}</text><t-icon name="chevron-right" size="24rpx" /></view>
+    </picker>
+    <text class="field-label">描述</text>
+    <t-textarea placeholder="记录本次处理内容" value="{{description}}" bindchange="onDescInput" maxlength="500" autosize />
+    <text class="field-label">费用</text>
+    <t-input placeholder="可选" value="{{cost}}" type="digit" bindchange="onCostInput" />
+    <text class="field-label">技术员</text>
+    <t-input placeholder="可选" value="{{technician}}" bindchange="onTechInput" />
+    <t-button theme="primary" size="large" block loading="{{actionLoading}}" disabled="{{actionLoading}}" bindtap="onDialogConfirm">保存记录</t-button>
+  </view>
+</t-action-sheet>

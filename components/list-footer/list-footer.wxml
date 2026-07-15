@@ -1,0 +1,14 @@
+<view class="list-footer">
+  <t-skeleton wx:if="{{skeleton}}" loading="{{loading && list.length === 0}}" animate>
+    <slot />
+    <t-empty wx:if="{{!loading && list.length === 0}}" icon="{{emptyIcon}}" description="{{emptyDesc}}" />
+  </t-skeleton>
+  <block wx:if="{{!skeleton}}">
+    <slot />
+  </block>
+
+  <view wx:if="{{loading && list.length > 0}}" class="app-loading-more">
+    <t-loading size="48rpx" theme="circular" />
+  </view>
+  <view wx:if="{{!hasMore && list.length > 0}}" class="app-no-more">没有更多了</view>
+</view>

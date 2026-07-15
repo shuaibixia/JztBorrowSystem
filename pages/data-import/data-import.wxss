@@ -1,0 +1,262 @@
+.page-container {
+  min-height: 100vh;
+  padding-top: var(--space-4);
+  padding-bottom: var(--pb);
+}
+
+.data-main-tabs {
+  display: flex;
+  margin: 0 var(--mx) 20rpx;
+  border-bottom: 1rpx solid var(--line-soft);
+}
+
+.data-main-tab {
+  flex: 1;
+  min-height: 72rpx;
+  padding: 0 16rpx;
+  border-bottom: 4rpx solid transparent;
+  color: var(--t2);
+  font-size: var(--f3);
+  line-height: 72rpx;
+  text-align: center;
+}
+
+.data-main-tab.active {
+  border-bottom-color: var(--c1);
+  color: var(--c1);
+  font-weight: 600;
+}
+
+.data-sub-tabs-scroll {
+  margin: 0 var(--mx) 24rpx;
+  border-bottom: 1rpx solid var(--line-soft);
+  white-space: nowrap;
+}
+
+.data-sub-tabs {
+  display: flex;
+  gap: 28rpx;
+}
+
+.data-sub-tab {
+  flex: 0 0 auto;
+  padding: 0 0 16rpx;
+  border-bottom: 4rpx solid transparent;
+  background: transparent;
+  color: var(--t2);
+  font-size: var(--f3);
+}
+
+.data-sub-tab.active {
+  border-bottom-color: var(--c1);
+  color: var(--c1);
+  font-weight: 600;
+}
+
+.data-card {
+  margin: 0 var(--mx);
+  padding: 28rpx;
+  border: 1rpx solid var(--line-soft);
+  border-radius: var(--r);
+  background: var(--surface);
+}
+
+.data-card-title {
+  display: block;
+  margin-bottom: 24rpx;
+  color: var(--t0);
+  font-size: var(--type-heading);
+  font-weight: 600;
+}
+
+.data-field + .data-field {
+  margin-top: 22rpx;
+}
+
+.data-label {
+  display: block;
+  margin-bottom: 10rpx;
+  color: var(--t1);
+  font-size: var(--f3);
+  font-weight: 500;
+}
+
+.data-input,
+.data-picker {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 82rpx;
+  padding: 0 20rpx;
+  border: 1rpx solid var(--line-soft);
+  border-radius: var(--r-sm);
+  background: var(--bg-sec);
+  color: var(--t0);
+  font-size: var(--f2);
+}
+
+.data-picker {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.data-picker.placeholder {
+  color: var(--t3);
+}
+
+.data-card t-button {
+  margin-top: 30rpx;
+}
+
+.data-help {
+  display: block;
+  margin: -10rpx 0 12rpx;
+  color: var(--t1);
+  font-size: var(--f3);
+  line-height: 1.55;
+}
+
+.data-help.secondary {
+  margin-top: 0;
+  color: var(--t3);
+  font-size: var(--f4);
+}
+
+.import-result {
+  margin-top: 24rpx;
+  padding: 18rpx;
+  border-radius: var(--r-sm);
+  background: var(--bg-sec);
+}
+
+.import-result-title,
+.import-result-error {
+  display: block;
+}
+
+.import-result-title {
+  color: var(--t1);
+  font-size: var(--f3);
+}
+
+.import-result-error {
+  margin-top: 6rpx;
+  color: var(--err);
+  font-size: var(--f4);
+  line-height: 1.5;
+  word-break: break-all;
+}
+
+.data-list-card {
+  padding-bottom: 0;
+  overflow: hidden;
+}
+
+.data-list-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.data-list-toolbar t-button {
+  flex: 0 0 auto;
+  margin-top: 0;
+}
+
+.data-search {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 10rpx;
+  min-width: 0;
+  min-height: 72rpx;
+  padding: 0 16rpx;
+  border-radius: var(--r-sm);
+  background: var(--bg-sec);
+  color: var(--t3);
+}
+
+.data-search input {
+  flex: 1;
+  min-width: 0;
+  height: 72rpx;
+  color: var(--t0);
+  font-size: var(--f3);
+}
+
+.data-count {
+  display: block;
+  margin: 18rpx 0 10rpx;
+  color: var(--t2);
+  font-size: var(--f4);
+}
+
+.data-loading,
+.data-empty {
+  padding: 36rpx 0;
+  text-align: center;
+}
+
+.data-list-row {
+  display: flex;
+  align-items: center;
+  gap: 14rpx;
+  min-height: 96rpx;
+  margin: 0 -28rpx;
+  padding: 16rpx 28rpx;
+  border-top: 1rpx solid var(--line-soft);
+}
+
+.data-list-icon,
+.student-avatar {
+  flex: 0 0 auto;
+  width: 54rpx;
+  height: 54rpx;
+  border-radius: var(--r-control);
+}
+
+.data-list-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--c1-bg);
+  color: var(--c1);
+}
+
+.student-avatar {
+  background: var(--bg-hover);
+}
+
+.data-list-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.data-list-name,
+.data-list-meta {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.data-list-name {
+  color: var(--t0);
+  font-size: var(--f2);
+  font-weight: 600;
+}
+
+.data-list-meta {
+  margin-top: 5rpx;
+  color: var(--t2);
+  font-size: var(--f4);
+}
+
+.state-panel {
+  padding: var(--state-pad);
+  text-align: center;
+}
+
+.no-access {
+  padding-top: calc(var(--pt) + 80rpx);
+}

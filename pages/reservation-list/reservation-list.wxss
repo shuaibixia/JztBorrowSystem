@@ -1,0 +1,154 @@
+.reservation-list-page {
+  padding: var(--space-4) var(--mx) var(--pbf);
+}
+
+.reservation-toolbar {
+  margin-bottom: var(--space-3);
+}
+
+.create-entry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  min-height: 104rpx;
+  padding: 18rpx 20rpx;
+  border: 1rpx solid rgba(36, 95, 146, 0.22);
+  border-radius: var(--r-content);
+  background: var(--surface);
+}
+
+.create-copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  gap: 4rpx;
+}
+
+.create-title,
+.create-sub {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.create-title {
+  color: var(--t0);
+  font-size: var(--type-label);
+  font-weight: 600;
+}
+
+.create-sub {
+  color: var(--t2);
+  font-size: var(--type-meta);
+}
+
+.filter-bar {
+  margin-top: var(--space-2);
+  --td-search-bg-color: var(--surface);
+  --td-search-square-radius: var(--r-control);
+  --td-search-font-size: var(--type-label);
+}
+
+.tabs-wrap {
+  margin-bottom: var(--space-3);
+  border-bottom: 1rpx solid var(--line-soft);
+  --td-tab-nav-bg-color: transparent;
+  --td-tab-item-height: 80rpx;
+  --td-tab-item-active-color: var(--c1);
+  --td-tab-track-color: var(--c1);
+}
+
+.state-panel {
+  padding: var(--state-pad);
+  text-align: center;
+}
+
+.reservation-list {
+  overflow: hidden;
+  border: 1rpx solid var(--line-soft);
+  border-radius: var(--r-content);
+  background: var(--surface);
+}
+
+.reservation-row {
+  padding: 22rpx 24rpx;
+}
+
+.reservation-row + .reservation-row {
+  border-top: 1rpx solid var(--line-soft);
+}
+
+.reservation-row--pressed {
+  background: var(--bg-hover);
+}
+
+.row-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.row-title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--t0);
+  font-size: var(--type-label);
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.row-sub {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--t2);
+  font-size: var(--type-meta);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.row-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+  margin-top: var(--space-1);
+}
+
+.row-label {
+  flex: 0 0 auto;
+  color: var(--t3);
+  font-size: var(--type-meta);
+}
+
+.row-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--space-2);
+}
+
+.inline-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-2) 0;
+  color: var(--err);
+  font-size: var(--type-label);
+}
+
+.action-error {
+  margin-bottom: var(--space-3);
+  padding: var(--error-pad);
+  border-radius: var(--r-control);
+  background: var(--err-bg);
+  color: var(--err);
+  font-size: var(--type-label);
+  line-height: 1.5;
+}

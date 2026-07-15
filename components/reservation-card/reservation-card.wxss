@@ -1,0 +1,40 @@
+:host {
+  display: block;
+}
+
+.rc {
+  padding: 22rpx 24rpx;
+  background: var(--surface, #FFFFFF);
+}
+
+.rc--pressed {
+  background: var(--bg-hover, #EDF1F5);
+}
+
+.rc-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2, 16rpx);
+}
+
+.rc-eq {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--t0, #1D1D1F);
+  font-size: var(--type-label, 14px);
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rc-sub {
+  display: block;
+  margin-top: var(--space-1, 8rpx);
+  overflow: hidden;
+  color: var(--t2, #6E6E73);
+  font-size: var(--type-meta, 12px);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

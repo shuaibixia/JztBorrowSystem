@@ -1,0 +1,34 @@
+<t-navbar title="借还记录" />
+
+<view class="page-container records-page">
+  <view class="record-filter-head">
+    <text class="record-filter-label">按状态查看</text>
+    <text wx:if="{{list.length}}" class="record-filter-count">当前 {{list.length}} 条</text>
+  </view>
+
+  <scroll-view scroll-x class="record-tabs-scroll">
+    <view class="record-tabs">
+      <view wx:for="{{tabOptions}}" wx:key="index" data-index="{{index}}" bindtap="onTabTap" class="record-tab {{activeTab === index ? 'record-tab--active' : ''}}">{{item}}</view>
+    </view>
+  </scroll-view>
+
+  <t-skeleton loading="{{loading && list.length === 0}}" rows="4" animate>
+    <view wx:if="{{error && list.length === 0}}" class="state-panel"><t-empty icon="error-circle" description="{{errorMessage || '记录加载失败'}}" /><t-button theme="primary" size="small" bindtap="onRetryList">重新加载</t-button></view>
+
+    <view wx:elif="{{list.length > 0}}" class="record-list">
+      <view wx:for="{{list}}" wx:key="_id" data-equipmentid="{{item.equipmentId}}" bindtap="onItemTap" hover-class="record-row--pressed" class="record-row">
+        <view class="record-main">
+          <view class="record-head"><text class="record-name">{{item.equipmentName || '未命名器材'}}</text><t-tag size="small" variant="light" theme="{{item.statusInfo.color === 'green' ? 'success' : item.statusInfo.color === 'orange' ? 'warning' : 'error'}}">{{item.statusInfo.label}}</t-tag></view>
+          <view class="record-time-row"><t-icon name="time" size="20rpx" /><text>借出 {{item.checkoutAtStr}}{{item.returnAtStr ? ' · 归还 ' + item.returnAtStr : ''}}</text></view>
+        </view>
+        <t-icon name="chevron-right" size="24rpx" class="record-arrow" />
+      </view>
+    </view>
+
+    <view wx:elif="{{!loading}}" class="state-panel"><t-empty icon="time" description="没有借还记录" /></view>
+  </t-skeleton>
+
+  <view wx:if="{{error && list.length > 0}}" class="inline-error"><text>{{errorMessage || '加载失败'}}</text><t-button variant="text" size="small" bindtap="onRetryList">重试</t-button></view>
+  <view wx:if="{{loading && list.length > 0}}" class="loading-more"><t-loading size="32rpx" theme="circular" /></view>
+  <view wx:if="{{!hasMore && list.length > 0}}" class="list-end">到底了</view>
+</view>

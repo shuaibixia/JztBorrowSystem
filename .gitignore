@@ -1,0 +1,25 @@
+# Dependencies and generated build output
+node_modules/
+web-admin/dist/
+web-admin/.vite/
+coverage/
+
+# Local configuration and credentials
+project.private.config.json
+.env
+.env.*
+!.env.example
+*.local.*
+.claude/
+
+# Local design exports are reference material, not application source.
+为一个大学学生组织设计摄影器材管理微/
+
+# Editor and operating-system files
+.DS_Store
+.idea/
+.vscode/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+*.tsbuildinfo

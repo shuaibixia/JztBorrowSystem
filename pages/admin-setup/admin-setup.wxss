@@ -1,0 +1,74 @@
+.page-container {
+  min-height: 100vh;
+  padding-top: var(--space-4);
+  padding-bottom: var(--pb);
+}
+
+.setup-shell {
+  margin: 16rpx var(--mx) 0;
+}
+
+.setup-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72rpx;
+  height: 72rpx;
+  margin-bottom: 20rpx;
+  border-radius: var(--r-control);
+  background: var(--c1-bg);
+  color: var(--c1);
+}
+
+.setup-title,
+.setup-subtitle,
+.setup-label {
+  display: block;
+}
+
+.setup-title {
+  color: var(--t0);
+  font-size: var(--type-display);
+  font-weight: 600;
+}
+
+.setup-subtitle {
+  margin-top: 10rpx;
+  color: var(--t2);
+  font-size: var(--f3);
+}
+
+.setup-card {
+  margin-top: 32rpx;
+  padding: 28rpx 24rpx;
+  border: 1rpx solid var(--line-soft);
+  border-radius: var(--r);
+  background: var(--surface);
+}
+
+.setup-field + .setup-field {
+  margin-top: 24rpx;
+}
+
+.setup-label {
+  margin-bottom: 10rpx;
+  color: var(--t1);
+  font-size: var(--f3);
+  font-weight: 500;
+}
+
+.setup-input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 84rpx;
+  padding: 0 20rpx;
+  border: 1rpx solid var(--line-soft);
+  border-radius: var(--r-sm);
+  background: var(--bg-sec);
+  color: var(--t0);
+  font-size: var(--f2);
+}
+
+.setup-card t-button {
+  margin-top: 32rpx;
+}

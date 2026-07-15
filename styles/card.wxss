@@ -1,0 +1,83 @@
+/* ===== 页面容器 ===== */
+.app-page-container {
+  padding-top: var(--app-page-top);
+  padding-bottom: var(--app-page-bottom);
+}
+
+.app-page-container--fixed {
+  padding-bottom: var(--app-page-bottom-fixed);
+}
+
+.app-page-container--form {
+  padding-bottom: var(--app-page-bottom-form);
+}
+
+/* ===== 卡片 ===== */
+.app-card {
+  background: var(--app-card-bg);
+  border-radius: var(--app-card-radius);
+  padding: var(--app-card-padding);
+  margin: 0 var(--app-side-margin) var(--app-gap);
+}
+
+.app-card--compact {
+  padding: var(--app-card-padding-compact);
+  margin-bottom: var(--app-gap-sm);
+}
+
+/* ===== Section ===== */
+.app-section {
+  margin: 0 var(--app-side-margin) var(--app-gap);
+}
+
+.app-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--app-gap-sm);
+}
+
+.app-section-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.app-section-dot {
+  width: 8rpx;
+  height: 28rpx;
+  border-radius: 4rpx;
+  background: var(--app-primary);
+}
+
+.app-section-title {
+  font-size: var(--app-font-md);
+  font-weight: 600;
+  color: var(--app-text-primary);
+}
+
+.app-section-action {
+  display: flex;
+  align-items: center;
+  font-size: var(--app-font-sm);
+  color: var(--app-text-secondary);
+}
+
+/* ===== 图片 ===== */
+.app-img {
+  border-radius: var(--app-img-radius);
+}
+
+/* ===== 列表底部 ===== */
+.app-loading-more {
+  display: flex;
+  justify-content: center;
+  padding: 32rpx 0;
+}
+
+.app-no-more {
+  text-align: center;
+  padding: 32rpx 0;
+  font-size: var(--app-font-xs);
+  color: var(--app-text-placeholder);
+}

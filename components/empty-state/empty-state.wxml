@@ -1,0 +1,6 @@
+<view class="es">
+  <t-icon name="{{icon || 'browse'}}" size="40rpx" class="es-icon" />
+  <text class="es-text">{{text || '暂无内容'}}</text>
+  <text class="es-sub" wx:if="{{subText}}">{{subText}}</text>
+  <slot />
+</view>

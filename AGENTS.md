@@ -241,7 +241,7 @@ Initial cloud deployment has been performed after the architecture refactor. Bef
 
 ## Constraints For Future Work
 
-- There is no `.git` repository in this workspace at the time of writing. Do not assume git rollback is available.
+- Git is initialized. The `main` branch tracks `origin` at `https://github.com/shuaibixia/JztBorrowSystem.git`; keep commits focused, do not force-push, and do not overwrite unrelated user changes.
 - Make small patches and run syntax checks frequently.
 - Do not overwrite user changes.
 - Keep README and this file synchronized when backend boundaries or deployment steps change.

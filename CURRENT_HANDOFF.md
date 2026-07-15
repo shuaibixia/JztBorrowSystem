@@ -9,9 +9,17 @@
 - Project root: `/Users/piphanye/WeChatProjects/miniprogram-1`.
 - Stack: native WeChat Mini Program, CommonJS, WeChat Cloud Functions, TDesign Mini Program.
 - Cloud environment: `studentpress-d6gj8ugww75193e6d`.
-- There is no Git repository. Do not assume rollback is available and do not overwrite unrelated user changes.
+- Git is initialized. `main` tracks `origin` at `https://github.com/shuaibixia/JztBorrowSystem.git`; use focused commits, do not force-push, and do not overwrite unrelated user changes.
 - Do not add TypeScript, a web framework, a new UI library, or backend business changes for visual work.
 - Keep page JS focused on UI state. Existing calls must continue through the current service modules.
+
+## Repository Management
+
+- Public repository: `https://github.com/shuaibixia/JztBorrowSystem`.
+- Default branch: `main`.
+- `.gitignore` excludes local DevTools settings, dependencies, build output, private project config, and the local OpenDesign export package.
+- GitHub Actions workflow: `.github/workflows/verify.yml`. It runs `npm run check:all` and a clean `web-admin` production build for every push and pull request.
+- The public baseline sanitizes live test-member identifiers from documentation and mock data. Do not reintroduce real student IDs, OpenIDs, document IDs, secrets, or local credentials into committed files.
 
 ## Active Admin Website Work
 
